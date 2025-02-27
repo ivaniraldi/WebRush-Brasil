@@ -128,34 +128,8 @@ const PassionPurposeSection = () => (
               Nossa abordagem combina design inovador com estratégias eficazes.
             </p>
             <div className="flex items-center gap-6">
-              <Link to="/sobre" className="btn bg-green-400 btn-lg" aria-label="Conheça nossa história">
-                CONHEÇA NOSSA HISTÓRIA
-              </Link>
-              <Link to="/video" className="flex items-center group" aria-label="Assista nosso vídeo">
-                <div className="w-14 h-14 rounded-full bg-white shadow-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-yellow-400"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </div>
-                <span className="font-medium">ASSISTA NOSSO VÍDEO</span>
+              <Link to="/portfolio" className="btn bg-green-400 btn-lg" aria-label="Conheça nossa história">
+                CONHEÇA NOSSOS TRABALHOS
               </Link>
             </div>
           </motion.div>
@@ -434,14 +408,13 @@ const WhySiteSection = ({ staggerContainer, fadeIn }) => (
 );
 
 // Sección "Soluções para cada necessidade" – Exibição dos serviços
-const ServicesSeasonSection = ({ fadeIn }) => {
+const ServicesSeasonSection = () => {
   const { services } = useContext(GlobalContext);
   return (
     <motion.section
       className="py-24 bg-white"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      fadeIn= {fadeIn}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
       aria-label="Soluções para cada necessidade"
