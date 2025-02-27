@@ -17,7 +17,7 @@ const Blog = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       {/* Hero Section con diseño original */}
       <motion.section
         className="relative py-20 overflow-hidden bg-gradient-to-br from-green-400 to-blue-500"
@@ -105,20 +105,20 @@ const Blog = () => {
 
       {/* Newsletter Section */}
       <motion.section
-        className="py-20 bg-gray-900 text-white"
+        className="py-20 bg-gray-900 text-white mx-auto"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <div className="container mx-auto px-4 text-center">
+        <div className="container min-w-full mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Fique por dentro das novidades</h2>
           <p className="mb-8 text-gray-300">Inscreva-se em nossa newsletter para receber as últimas atualizações e dicas.</p>
           <form className="max-w-md mx-auto flex">
             <input
               type="email"
               placeholder="Seu melhor e-mail"
-              className="flex-grow px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="flex-grow px-4 py-2 ring-green-500 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             />
             <button
               type="submit"
