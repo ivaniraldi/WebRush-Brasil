@@ -36,12 +36,12 @@ const Footer = () => {
           <address className="space-y-4 not-italic">
             <h4 className="text-lg font-semibold text-green-600">Contato</h4>
             <p className="text-gray-600">
-              <strong>Telefone:</strong> <span itemProp="telephone">+55 (11) 1234-5678</span>
+              <strong>Telefone:</strong> <span itemProp="telephone">+55 (48) 99225 9119</span>
             </p>
             <p className="text-gray-600">
-              <strong>Email:</strong> 
+              <strong>Email: </strong>  
               <a href="mailto:contato@webrushbrasil.com" itemProp="email" className="hover:underline">
-                contato@webrushbrasil.com
+                contato@webrushbrasil.com.br
               </a>
             </p>
             <p className="text-gray-600">
@@ -53,8 +53,8 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="text-lg font-semibold text-green-600">Localização</h4>
             <address className="text-gray-600 not-italic">
-              Av. Paulista, 1000 - Bela Vista<br />
-              São Paulo - SP, 01310-100
+            Servidão Custódia Elias, 04 - Pinheira<br />
+            Santa Catarina - SC, 88139359
             </address>
             <div className="flex space-x-4 mt-4">
               <a 

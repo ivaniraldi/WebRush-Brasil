@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import logo from '../assets/logo.png';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,7 @@ function Navbar() {
       <div className="flex-1 flex justify-center">
         <Link to="/" className="text-3xl font-bold text-black hover:text-black">
           <motion.span initial={{ scale: 1 }} whileHover={{ scale: 1.1 }} transition={{ type: 'spring', stiffness: 300 }}>
-            WebRush
+            <img src={logo} alt="Logo da WebRush Brasil" className="h-16" />
           </motion.span>
         </Link>
       </div>
@@ -44,7 +45,7 @@ function Navbar() {
 
       {/* Menú móvil */}
       {isOpen && (
-        <motion.div className="absolute top-full left-0 w-full border-b border-base lg:hidden" initial="hidden" animate="visible" variants={menuVariants}>
+        <motion.div className="absolute bg-white top-full left-0 w-full border-b border-base lg:hidden" initial="hidden" animate="visible" variants={menuVariants}>
           <ul className="menu menu-vertical px-4 py-2">
             <NavLink to="/" className={({ isActive }) => `text-lg py-2 ${isActive ? 'text-black': "text-gray-500"} hover:text-black`} onClick={() => setIsOpen(false)}>Início</NavLink>
             <NavLink to="/blog" className={({ isActive }) => `text-lg py-2 ${isActive ? 'text-black': "text-gray-500"} hover:text-black`} onClick={() => setIsOpen(false)}>Blog</NavLink>
