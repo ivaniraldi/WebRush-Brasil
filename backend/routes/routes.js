@@ -3,6 +3,8 @@ const pool = require('../db/db');
 
 const router = express.Router();
 
+const nodemailer = require('nodemailer');
+
 // Configuración de Nodemailer (ejemplo con Gmail)
 const transporter = nodemailer.createTransport({
   service: 'gmail',
