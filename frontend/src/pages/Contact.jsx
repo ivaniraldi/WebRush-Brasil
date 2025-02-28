@@ -75,7 +75,7 @@ const Contact = () => {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-green-800/90 to-green-500/80 z-10"></div>
           <img
-            src="/placeholder.svg?height=400&width=1920&text=Contact+Us"
+            src="https://t3.ftcdn.net/jpg/05/30/96/04/360_F_530960431_c8fPd3HansYvrSJ4fJxZqp9OhjQmYoll.jpg"
             alt="Contact background"
             className="w-full h-full object-cover"
           />
