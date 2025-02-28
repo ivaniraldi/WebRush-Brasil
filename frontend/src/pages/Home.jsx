@@ -9,6 +9,17 @@ import { Helmet } from "react-helmet"
 import Steps from "../components/Steps"
 
 // Componente SEO para definir metadatos importantes
+const getColorByPrice = (price) => {
+  if (price < 501) {
+    return 'bg-green-500 bg-gradient-to-r from-green-400 to-green-600 shadow-lg shadow-green-500/50 border-4 border-green-700';
+  } else if (price < 1000) {
+    return 'bg-blue-500 bg-gradient-to-r from-blue-400 to-blue-600 shadow-lg shadow-blue-500/50 border-4 border-blue-700';
+  } else {
+    return 'bg-yellow-500 bg-gradient-to-r from-yellow-400 to-yellow-600 shadow-lg shadow-yellow-500/50 border-4 border-yellow-700';
+  }
+};
+
+
 const SEO = () => (
   <Helmet>
     <title>WebRush Brasil - Sites que Transformam Seu Negócio</title>
@@ -450,43 +461,31 @@ const ServicesSeasonSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => (
-            <motion.div
-              key={service.id}
-              className="group relative overflow-hidden rounded-xl shadow-lg"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <div className="aspect-square relative overflow-hidden">
-                <img
-                  src={`https://www.simio.com/wp-content/uploads/2024/10/simio-background-png.png`}
-                  alt={`Imagem do serviço ${service.name}`}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                  <h3 className="text-2xl font-bold mb-3">{service.name}</h3>
-                  <p className="text-white/90 mb-6 line-clamp-3 leading-relaxed">{service.description}</p>
-                  <div className="flex flex-col space-y-2">
-                    <span className="text-xs text-gray-300 uppercase tracking-wider">Investimento a partir de</span>
-                    <div className="flex justify-between items-center">
-                      <span className={`${service.price > 999 ? "text-2xl" : "text-3xl"} font-bold text-yellow-400`}>
-                        R$ {service.price.toLocaleString("pt-BR")}
-                      </span>
-                      <Link
-                        to="/contato"
-                        className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-lg transition-all duration-300 text-sm shadow-md hover:shadow-lg transform hover:-translate-y-1"
-                        aria-label={`Solicitar ${service.name}`}
-                      >
-                        SOLICITAR
-                      </Link>
-                    </div>
-                    <p className="text-xs text-center text-gray-400 mt-2">(variação de preço conforme complexidade)</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+           <motion.div
+           key={service.id}
+           className={`group relative overflow-hidden ${getColorByPrice(Number(service.price))}`}
+           initial={{ opacity: 0, y: 20 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           transition={{ duration: 0.5, delay: index * 0.1 }}
+         >
+           <div className="aspect-square relative overflow-hidden">
+             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+             <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+               <h3 className="text-2xl font-bold mb-2">{service.name}</h3>
+               <p className="text-white/80 mb-4 line-clamp-5">{service.description}</p>
+               <span className="text-xs text-gray-400">Desde</span>
+               <div className="flex justify-between items-center">
+                 <span className={`${service.price > 999 ? "text-md" : "text-xl"} font-bold `}>R$ {service.price}</span>
+                 <Link to="/contato" className="btn bg-yellow-500 border-none hover:bg-yellow-600 btn-sm" aria-label={`Explorar mais sobre ${service.name}`}>
+                   PEDIR
+                 </Link>
+               </div>
+               <p className="text-xs text-center text-gray-400 mt-2">(variação de preço por conteúdo)</p>
+             </div>
+           </div>
+         </motion.div>
+         
           ))}
         </div>
       </div>

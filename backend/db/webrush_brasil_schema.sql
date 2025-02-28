@@ -21,6 +21,7 @@ CREATE TABLE blog_posts (
     title VARCHAR(200) NOT NULL,
     slug VARCHAR(200) UNIQUE NOT NULL, -- Para URLs amigables
     content TEXT NOT NULL,
+    image_url VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     published BOOLEAN DEFAULT TRUE
@@ -55,17 +56,20 @@ CREATE TABLE services (
 -- Índice para búsqueda por nombre
 CREATE INDEX idx_services_name ON services(name);
 
+-- Modificar la tabla blog_posts para añadir una imagen opcional
+
+
+-- Ejemplo de inserción de posts con una imagen opcional
+INSERT INTO blog_posts (title, slug, content, image_url) VALUES
+    ('Por que seu negócio precisa de um site em 2025?', 'por-que-seu-negocio-precisa-de-um-site', 'Ter um site é essencial para alcançar mais clientes e aumentar suas vendas. Neste artigo, explico os benefícios...', 'https://example.com/images/negocio-2025.jpg'),
+    ('Como atrair clientes com uma página web?', 'como-atrair-clientes-com-site', 'Dicas práticas para usar seu site como ferramenta de marketing e conquistar mais leads...', NULL);  -- Sin imagen
+
 -- Inserción de datos iniciales de ejemplo
 
 -- Ejemplo de contactos
 INSERT INTO contacts (name, email, message) VALUES
     ('João Silva', 'joao.silva@email.com', 'Quero um site para minha loja de roupas, quanto custa?'),
     ('Maria Oliveira', 'maria.oli@email.com', 'Preciso de uma landing page urgente!');
-
--- Ejemplo de posts del blog
-INSERT INTO blog_posts (title, slug, content) VALUES
-    ('Por que seu negócio precisa de um site em 2025?', 'por-que-seu-negocio-precisa-de-um-site', 'Ter um site é essencial para alcançar mais clientes e aumentar suas vendas. Neste artigo, explico os benefícios...'),
-    ('Como atrair clientes com uma página web?', 'como-atrair-clientes-com-site', 'Dicas práticas para usar seu site como ferramenta de marketing e conquistar mais leads...');
 
 -- Ejemplo de proyectos del portafolio
 INSERT INTO portfolio_projects (title, description, image_url, project_url) VALUES
