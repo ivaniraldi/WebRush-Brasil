@@ -42,10 +42,22 @@ router.post("/contacts", async (req, res) => {
 
     // Configurar el correo
     const mailOptions = {
-      from: 'contato@webrushbrasil.com.br',
-      to:  'contato@webrushbrasil.com.br',
-      subject: `Nuevo mensaje de ${name}`,
-      text: `Nombre: ${name}\nEmail: ${email}\nMensaje: ${message}`,
+      from: "contato@webrushbrasil.com.br",
+      to: "contato@webrushbrasil.com.br",
+      subject: `Novo contato de ${name}`,
+      text: `
+📩 Novo contato recebido!
+
+Nome: ${name}
+Email: ${email}
+
+📬 Mensagem:
+${message}
+
+-------------------------
+🌐 WebRush Brasil
+🚀 Desenvolvimento Web a Baixo Custo
+  `,
     };
 
     // Enviar el correo
