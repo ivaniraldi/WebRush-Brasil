@@ -1,8 +1,3 @@
-// Archivo: index.js
-// Descripción: Configuración principal del servidor para WebRush Brasil
-// Autor: Ivan Iraldi (con asistencia de Grok)
-// Dependencias: express, cors, rutas, middleware de autenticación
-
 const express = require('express');
 const cors = require('cors');
 const routes = require('./routes/routes'); // Rutas de la API
@@ -17,19 +12,18 @@ app.use(express.json()); // Parsear cuerpos JSON en las solicitudes
 // Aplicar rutas con autenticación selectiva
 app.use('/api', (req, res, next) => {
   // Rutas públicas no requieren autenticación
-  if (
-    req.method === 'GET' &&
-    (
+  const isPublicRoute =
+    (req.method === 'GET' && (
       req.path.startsWith('/blog') ||
       req.path.startsWith('/portfolio') ||
       req.path.startsWith('/services')
-    )
-  ) {
+    )) ||
+    (req.method === 'POST' && req.path.startsWith('/contacts'));
+
+  if (isPublicRoute) {
     return next(); // Pasar directamente a las rutas públicas
-  }else if 
-  (req.method === 'POST' && req.path.startsWith('/contacts')) {
-    return next(); // Pasar directamente a las rutas públicas
-    }
+  }
+
   // Rutas protegidas requieren autenticación
   authMiddleware(req, res, next);
 }, routes);
