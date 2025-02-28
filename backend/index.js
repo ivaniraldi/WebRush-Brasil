@@ -26,7 +26,10 @@ app.use('/api', (req, res, next) => {
     )
   ) {
     return next(); // Pasar directamente a las rutas públicas
-  }
+  }else if 
+  (req.method === 'POST' && req.path.startsWith('/contacts')) {
+    return next(); // Pasar directamente a las rutas públicas
+    }
   // Rutas protegidas requieren autenticación
   authMiddleware(req, res, next);
 }, routes);
