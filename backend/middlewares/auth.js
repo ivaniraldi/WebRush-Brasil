@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 // Clave secreta para firmar y verificar tokens (en producción, usa una variable de entorno)
-const JWT_SECRET = process.env.JWT_SECRET || 'tu_clave_secreta_super_segura';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // Middleware de autenticación
 const authMiddleware = (req, res, next) => {
