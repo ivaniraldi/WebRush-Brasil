@@ -62,7 +62,7 @@ const HeroSection = () => (
           Seu site dos sonhos por um preço acessível. Designs exclusivos que capturam a essência da sua marca e
           convertem visitantes em clientes.
         </p>
-        <div className="flex flex-col sm:flex-row gap-5 justify-center">
+        <div className="flex flex-col sm:flex-row gap-5 justify-center mb-14">
           <Link
             to="/contato"
             className="bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold py-4 px-8 rounded-lg transition-all duration-300 flex items-center justify-center text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1"

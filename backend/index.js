@@ -14,7 +14,7 @@ const app = express();
 const corsOptions = {
   origin: [
     'https://www.webrushbrasil.com.br', // Dominio de producción
-    'http://localhost:3000', // Para desarrollo local (ajusta el puerto si es diferente)
+    'http://localhost:5173', // Para desarrollo local (ajusta el puerto si es diferente)
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
