@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5173/api'; // Ajusta según tu entorno
+const API_URL = 'https://webrush-brasil-backend.onrender.com/api'; // Ajusta según tu entorno
 
 // Utility Functions
 function showLoading(tableId) {
