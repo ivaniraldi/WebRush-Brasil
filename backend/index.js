@@ -16,18 +16,23 @@ const corsOptions = {
     'https://www.webrushbrasil.com.br', // Dominio de producción
     'http://localhost:3000', // Para desarrollo local (ajusta el puerto si es diferente)
   ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
-  allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
-  credentials: true, // Si planeas usar cookies o autenticación con credenciales
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
 };
-app.use(cors(corsOptions)); // Aplicar CORS con opciones específicas
+app.use(cors(corsOptions));
 
 // Middlewares globales
 app.use(express.json()); // Parsear cuerpos JSON en las solicitudes
 
+// Middleware de depuración para todas las solicitudes
+app.use((req, res, next) => {
+  console.log(`[DEBUG] Método: ${req.method}, Ruta completa: ${req.path}, URL: ${req.url}`);
+  next();
+});
+
 // Aplicar rutas con autenticación selectiva
 app.use('/api', (req, res, next) => {
-  console.log(`Método: ${req.method}, Ruta: ${req.path}`);
   const isPublicRoute =
     (req.method === 'GET' && (
       req.path.startsWith('/blog') ||
@@ -37,11 +42,11 @@ app.use('/api', (req, res, next) => {
     (req.method === 'POST' && req.path === '/contacts');
 
   if (isPublicRoute) {
-    console.log('Ruta pública detectada, saltando autenticación');
+    console.log('[DEBUG] Ruta pública detectada, saltando autenticación');
     return next();
   }
 
-  console.log('Ruta protegida, aplicando autenticación');
+  console.log('[DEBUG] Ruta protegida, aplicando autenticación');
   authMiddleware(req, res, next);
 }, routes);
 
