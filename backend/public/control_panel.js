@@ -1,4 +1,4 @@
-const API_URL = 'https://webrush-brasil-backend.onrender.com/api'; // Adjust to your backend port
+const API_URL = 'http://localhost:5173/api'; // Ajusta según tu entorno
 
 // Utility Functions
 function showLoading(tableId) {
@@ -190,8 +190,8 @@ async function saveBlog() {
 }
 
 async function editBlog(id) {
-    console.log(id, token)
     const token = localStorage.getItem('token');
+    console.log(id, token)
     try {
         const blog = await fetchWithErrorHandling(`${API_URL}/blog/${id}`, {
             headers: { 'Authorization': `Bearer ${token}` }

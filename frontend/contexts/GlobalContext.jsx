@@ -10,6 +10,7 @@ const GlobalProvider = ({ children }) => {
   const [theme, setTheme] = useState("light");
   const [services, setServices] = useState([]);
   const [posts, setPosts] = useState([]);
+  const [portfolioProjects, setPortfolioProjects] = useState([]); // Nuevo estado para proyectos del portfolio
   const [isLoading, setIsLoading] = useState(true);
   const [contactStatus, setContactStatus] = useState({
     loading: false,
@@ -26,6 +27,7 @@ const GlobalProvider = ({ children }) => {
         console.error("Error al obtener los servicios:", error)
       );
 
+    // Consumiendo los posts del blog
     const fetchPosts = async () => {
       setIsLoading(true);
       try {
@@ -38,7 +40,21 @@ const GlobalProvider = ({ children }) => {
       }
     };
 
+    // Consumiendo los proyectos del portfolio
+    const fetchPortfolioProjects = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get("/api/portfolio");
+        setPortfolioProjects(response.data);
+      } catch (error) {
+        console.error("Error fetching portfolio projects:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     fetchPosts();
+    fetchPortfolioProjects(); // Llamada a la función del portfolio
   }, []);
 
   // Función para enviar un mensaje de contacto
@@ -52,7 +68,7 @@ const GlobalProvider = ({ children }) => {
         success: "Mensaje enviado con éxito",
         error: null,
       });
-      return response.data; // Retorna los datos del contacto creado si es necesario
+      return response.data;
     } catch (error) {
       const errorMessage =
         error.response?.data?.error || "Error al enviar el mensaje";
@@ -61,7 +77,48 @@ const GlobalProvider = ({ children }) => {
         success: null,
         error: errorMessage,
       });
-      throw error; // Lanza el error para que el componente que lo llama pueda manejarlo si es necesario
+      throw error;
+    }
+  };
+
+  // Función para crear un nuevo proyecto en el portfolio
+  const createPortfolioProject = async (projectData) => {
+    try {
+      const response = await axios.post("/api/portfolio", projectData);
+      setPortfolioProjects((prevProjects) => [...prevProjects, response.data]);
+      return response.data;
+    } catch (error) {
+      console.error("Error creating portfolio project:", error);
+      throw error;
+    }
+  };
+
+  // Función para actualizar un proyecto en el portfolio
+  const updatePortfolioProject = async (id, projectData) => {
+    try {
+      const response = await axios.put(`/api/portfolio/${id}`, projectData);
+      setPortfolioProjects((prevProjects) =>
+        prevProjects.map((project) =>
+          project.id === id ? response.data : project
+        )
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error updating portfolio project:", error);
+      throw error;
+    }
+  };
+
+  // Función para eliminar un proyecto del portfolio
+  const deletePortfolioProject = async (id) => {
+    try {
+      await axios.delete(`/api/portfolio/${id}`);
+      setPortfolioProjects((prevProjects) =>
+        prevProjects.filter((project) => project.id !== id)
+      );
+    } catch (error) {
+      console.error("Error deleting portfolio project:", error);
+      throw error;
     }
   };
 
@@ -72,9 +129,13 @@ const GlobalProvider = ({ children }) => {
         setTheme,
         services,
         posts,
+        portfolioProjects, // Añadido al contexto
         isLoading,
         contactStatus,
-        sendContactMessage, // Nueva función añadida al contexto
+        sendContactMessage,
+        createPortfolioProject, // Nueva función añadida
+        updatePortfolioProject, // Nueva función añadida
+        deletePortfolioProject, // Nueva función añadida
       }}
     >
       {children}
