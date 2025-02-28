@@ -1,8 +1,3 @@
-// Archivo: auth.js
-// Descripción: Middleware de autenticación con JWT para WebRush Brasil
-// Autor: Ivan Iraldi (con asistencia de Grok)
-// Dependencia: jsonwebtoken
-
 const jwt = require('jsonwebtoken');
 
 // Clave secreta para firmar y verificar tokens (en producción, usa una variable de entorno)
