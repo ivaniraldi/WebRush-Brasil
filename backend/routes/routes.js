@@ -42,8 +42,8 @@ router.post("/contacts", async (req, res) => {
 
     // Configurar el correo
     const mailOptions = {
-      from: "tuemail@gmail.com",
-      to: "correo_empresa@dominio.com", // Correo de tu empresa
+      from: 'contato@webrushbrasil.com.br',
+      to:  'contato@webrushbrasil.com.br',
       subject: `Nuevo mensaje de ${name}`,
       text: `Nombre: ${name}\nEmail: ${email}\nMensaje: ${message}`,
     };
