@@ -11,6 +11,9 @@ app.use(express.json()); // Parsear cuerpos JSON en las solicitudes
 
 // Aplicar rutas con autenticación selectiva
 app.use('/api', (req, res, next) => {
+  // Depuración para confirmar método y ruta
+  console.log(`Método: ${req.method}, Ruta: ${req.path}`);
+
   // Rutas públicas no requieren autenticación
   const isPublicRoute =
     (req.method === 'GET' && (
@@ -18,13 +21,14 @@ app.use('/api', (req, res, next) => {
       req.path.startsWith('/portfolio') ||
       req.path.startsWith('/services')
     )) ||
-    (req.method === 'POST' && req.path.startsWith('/contacts'));
+    (req.method === 'POST' && req.path === '/contacts'); // Ajustado para exactitud
 
   if (isPublicRoute) {
+    console.log('Ruta pública detectada, saltando autenticación');
     return next(); // Pasar directamente a las rutas públicas
   }
 
-  // Rutas protegidas requieren autenticación
+  console.log('Ruta protegida, aplicando autenticación');
   authMiddleware(req, res, next);
 }, routes);
 
