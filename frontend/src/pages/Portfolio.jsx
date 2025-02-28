@@ -4,11 +4,36 @@ import { Link } from "react-router-dom"
 
 const Portfolio = () => {
   const templates = [
-    { id: 1, name: "E-commerce", image: "https://toflowdesign.com.br/images/portfolio/01-portfolio.jpg", url: "https://ecommerce-portfolio-8cbo.onrender.com/" },
-    { id: 2, name: "Blog", image: "https://toflowdesign.com.br/images/portfolio/02-portfolio.jpg", url: "https://promo.toflowdesign.com.br/unirio/" },
-    { id: 3, name: "Portfolio", image: "https://toflowdesign.com.br/images/portfolio/03-portfolio.jpg", url: "https://promo.toflowdesign.com.br/rio-care/" },
-    { id: 4, name: "Landing Page", image: "https://toflowdesign.com.br/images/portfolio/04-portfolio.jpg", url: "https://promo.toflowdesign.com.br/bonne-chere/" },
-  ]
+    { 
+      id: 1, 
+      name: "E-commerce", 
+      image: "https://i.ibb.co/RTz3GNrd/Sin-t-tulo.png", 
+      url: "https://ecommerce-portfolio-8cbo.onrender.com/",
+      description: "Loja online para vender produtos ou serviços. Ideal para negócios que querem crescer e gerenciar vendas."
+    },
+    { 
+      id: 2, 
+      name: "Blog", 
+      image: "https://toflowdesign.com.br/images/portfolio/02-portfolio.jpg", 
+      url: "https://promo.toflowdesign.com.br/unirio/",
+      description: "Espaço digital para artigos ou notícias. Perfeito para conectar com a audiência por meio de conteúdo."
+    },
+    { 
+      id: 3, 
+      name: "Portfólio", 
+      image: "https://i.ibb.co/wFVMNVpX/Sin-t-tulo.png", 
+      url: "https://promo.toflowdesign.com.br/rio-care/",
+      description: "Vitrine online de trabalhos e projetos. Ideal para criativos destacarem sua experiência."
+    },
+    { 
+      id: 4, 
+      name: "Landing Page", 
+      image: "https://i.ibb.co/PvrQJMQn/Sin-t-tulo.png", 
+      url: "https://landingpage-portfolio.onrender.com/",
+      description: "Página única para atrair e converter visitantes. Útil para promoções ou campanhas."
+    },
+  ];
+  
 
   const recentWorks = [
     { id: 1, name: "ADVA (Tech Startup)", image: "https://toflowdesign.com.br/images/portfolio/15-portfolio.jpg"},
@@ -133,44 +158,45 @@ const Portfolio = () => {
 
       {/* Templates Section */}
       <motion.section
-        className="py-24 bg-white"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-black mb-12 text-center text-gray-800">Templates Disponíveis</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {templates.map((template, index) => (
-              <motion.div
-                key={template.id}
-                className="bg-gray-100 rounded-lg overflow-hidden shadow-lg"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <img
-                  src={template.image || "/placeholder.svg"}
-                  alt={template.name}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4">
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">{template.name}</h3>
-                  <Link to={`${template.url}`} className="text-green-600 hover:text-green-800 font-semibold">
-                    Ver Site
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
+    className="py-24 bg-white"
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.8 }}
+  >
+    <div className="container mx-auto px-6">
+      <h2 className="text-4xl font-black mb-12 text-center text-gray-800">Templates Disponíveis</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {templates.map((template, index) => (
+          <motion.div
+            key={template.id}
+            className="bg-gray-100 rounded-lg overflow-hidden shadow-lg"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+          >
+            <img
+              src={template.image || "/placeholder.svg"}
+              alt={template.name}
+              className="w-full h-48 object-cover"
+            />
+            <div className="p-4">
+              <h3 className="text-xl font-bold text-gray-800 mb-2">{template.name}</h3>
+              <p className="text-gray-600 text-sm mb-4">{template.description}</p>
+              <Link to={`${template.url}`} className="text-green-600 hover:text-green-800 font-semibold">
+                Ver Site
+              </Link>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </motion.section>
 
       {/* Recent Works Section */}
       <motion.section
-        className="py-24 bg-gray-100"
+        className="py-24 bg-gray-100 hidden"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}

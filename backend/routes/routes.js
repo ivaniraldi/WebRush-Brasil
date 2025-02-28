@@ -90,7 +90,7 @@ router.get('/blog/:slug', async (req, res) => {
 
 // POST /api/blog - Crear un nuevo post (con autenticación)
 router.post('/blog', async (req, res) => {
-  const { title, slug, content } = req.body;
+  const { title, slug, content, image_url } = req.body;
 
   if (!title || !slug || !content) {
     return res.status(400).json({ error: 'Faltan datos requeridos: title, slug o content' });
@@ -105,9 +105,10 @@ router.post('/blog', async (req, res) => {
       return res.status(400).json({ error: 'Slug ya existe' });
     }
 
+    // Si no se proporciona una URL de imagen, se usará null por defecto
     const result = await pool.query(
-      'INSERT INTO blog_posts (title, slug, content) VALUES ($1, $2, $3) RETURNING *',
-      [title, slug, content]
+      'INSERT INTO blog_posts (title, slug, content, image_url) VALUES ($1, $2, $3, $4) RETURNING *',
+      [title, slug, content, image_url || null]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
