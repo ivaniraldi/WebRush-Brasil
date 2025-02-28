@@ -1,15 +1,20 @@
-// Archivo: routes.js
-// Descripción: Rutas de la API para WebRush Brasil con middleware de autenticación
-// Autor: Ivan Iraldi (con asistencia de Grok)
-
 const express = require('express');
 const pool = require('../db/db');
 
 const router = express.Router();
 
+// Configuración de Nodemailer (ejemplo con Gmail)
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'iraldiban@gmail.com', // Tu correo de empresa
+    pass: 'ivaniraldi123123', // Usa una contraseña de aplicación si tienes 2FA activado
+  },
+});
+
 // --- Endpoints de Contactos ---
 
-// POST /api/contacts - Crear un nuevo contacto (con autenticación opcional)
+// POST /api/contacts - Crear un nuevo contacto y enviar email
 router.post('/contacts', async (req, res) => {
   const { name, email, message } = req.body;
 
@@ -24,14 +29,27 @@ router.post('/contacts', async (req, res) => {
   }
 
   try {
+    // Guardar en la base de datos
     const result = await pool.query(
       'INSERT INTO contacts (name, email, message) VALUES ($1, $2, $3) RETURNING *',
       [name, email, message]
     );
+
+    // Configurar el correo
+    const mailOptions = {
+      from: 'tuemail@gmail.com',
+      to: 'correo_empresa@dominio.com', // Correo de tu empresa
+      subject: `Nuevo mensaje de ${name}`,
+      text: `Nombre: ${name}\nEmail: ${email}\nMensaje: ${message}`,
+    };
+
+    // Enviar el correo
+    await transporter.sendMail(mailOptions);
+
     res.status(201).json(result.rows[0]);
   } catch (err) {
-    console.error('Error al guardar contacto:', err.stack);
-    res.status(500).json({ error: 'No se pudo guardar el contacto' });
+    console.error('Error al procesar contacto:', err.stack);
+    res.status(500).json({ error: 'No se pudo procesar el contacto' });
   }
 });
 

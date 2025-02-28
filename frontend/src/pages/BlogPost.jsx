@@ -36,7 +36,7 @@ const BlogPost = () => {
       </section>
       <section className="container mx-auto px-4 py-12 max-w-3xl">
         <motion.img 
-          src={post.imageUrl}
+          src={post.image_url}
           alt={post.title}
           className="w-full rounded-lg shadow-lg mb-6"
           initial={{ opacity: 0 }}

@@ -71,7 +71,7 @@ const Blog = () => {
                   {...fadeInUp}
                 >
                   <img
-                    src={`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ322y5cp_L60d7_wAiK5hYDSIloUiFI9rvzA&s`}
+                    src={post.image_url}
                     alt={post.title}
                     className="w-full h-48 object-cover"
                   />

@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { useContext, useState } from "react"
-import { motion } from "framer-motion"
-import GlobalContext from "../../contexts/GlobalContext"
+import { useContext, useState } from "react";
+import { motion } from "framer-motion";
+import GlobalContext from "../../contexts/GlobalContext";
 
 const Contact = () => {
-  const { services } = useContext(GlobalContext)
+  const { services, contactStatus, sendContactMessage } = useContext(GlobalContext);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -13,55 +13,65 @@ const Contact = () => {
     message: "",
     plan: "",
     additionalIdeas: "",
-  })
+  });
 
-  const [formattedData, setFormattedData] = useState(null)
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
   const validateForm = () => {
-    const tempErrors = {}
-    if (!formData.fullName.trim()) tempErrors.fullName = "Nome completo é obrigatório"
+    const tempErrors = {};
+    if (!formData.fullName.trim()) tempErrors.fullName = "Nome completo é obrigatório";
     if (!formData.email.trim()) {
-      tempErrors.email = "Email é obrigatório"
+      tempErrors.email = "Email é obrigatório";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      tempErrors.email = "Email inválido"
+      tempErrors.email = "Email inválido";
     }
-    if (!formData.phone.trim()) tempErrors.phone = "Telefone é obrigatório"
-    if (!formData.message.trim()) tempErrors.message = "Mensagem é obrigatória"
-    if (!formData.plan) tempErrors.plan = "Por favor, selecione um plano"
-    setErrors(tempErrors)
-    return Object.keys(tempErrors).length === 0
-  }
+    if (!formData.phone.trim()) tempErrors.phone = "Telefone é obrigatório";
+    if (!formData.message.trim()) tempErrors.message = "Mensagem é obrigatória";
+    if (!formData.plan) tempErrors.plan = "Por favor, selecione um plano";
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (validateForm()) {
       const formattedMessage = `
         Telefone: ${formData.phone}
         Plano escolhido: ${formData.plan}
         Mensagem: ${formData.message}
         ${formData.additionalIdeas ? `Ideias adicionais: ${formData.additionalIdeas}` : ""}
-      `
+      `;
 
-      const formatted = {
+      const contactData = {
         name: formData.fullName.substring(0, 100),
         email: formData.email,
         message: formattedMessage.substring(0, 1000),
-      }
+      };
 
-      setFormattedData(formatted)
-      // Aqui você pode enviar os dados para uma API ou realizar outras ações necessárias
-      console.log(formatted)
+      try {
+        await sendContactMessage(contactData);
+        // Opcional: Limpiar el formulario tras éxito
+        setFormData({
+          fullName: "",
+          email: "",
+          phone: "",
+          message: "",
+          plan: "",
+          additionalIdeas: "",
+        });
+      } catch (error) {
+        console.error("Error al enviar el mensaje:", error);
+      }
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -122,7 +132,9 @@ const Contact = () => {
                   name="fullName"
                   value={formData.fullName}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${errors.fullName ? "border-red-500" : "border-gray-300"}`}
+                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${
+                    errors.fullName ? "border-red-500" : "border-gray-300"
+                  }`}
                   placeholder="Seu nome completo"
                 />
                 {errors.fullName && <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>}
@@ -137,7 +149,9 @@ const Contact = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${errors.email ? "border-red-500" : "border-gray-300"}`}
+                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${
+                    errors.email ? "border-red-500" : "border-gray-300"
+                  }`}
                   placeholder="seu@email.com"
                 />
                 {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
@@ -152,7 +166,9 @@ const Contact = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${errors.phone ? "border-red-500" : "border-gray-300"}`}
+                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${
+                    errors.phone ? "border-red-500" : "border-gray-300"
+                  }`}
                   placeholder="(00) 00000-0000"
                 />
                 {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
@@ -166,7 +182,9 @@ const Contact = () => {
                   name="plan"
                   value={formData.plan}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${errors.plan ? "border-red-500" : "border-gray-300"}`}
+                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${
+                    errors.plan ? "border-red-500" : "border-gray-300"
+                  }`}
                 >
                   <option value="">Selecione um plano</option>
                   {services.map((service) => (
@@ -187,7 +205,9 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   rows="4"
-                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${errors.message ? "border-red-500" : "border-gray-300"}`}
+                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 ${
+                    errors.message ? "border-red-500" : "border-gray-300"
+                  }`}
                   placeholder="Sua mensagem aqui"
                 ></textarea>
                 {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
@@ -209,26 +229,27 @@ const Contact = () => {
               <div className="flex justify-end">
                 <button
                   type="submit"
-                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
+                  className={`bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ${
+                    contactStatus.loading ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                  disabled={contactStatus.loading}
                 >
-                  Enviar Mensagem
+                  {contactStatus.loading ? "Enviando..." : "Enviar Mensagem"}
                 </button>
               </div>
+              {/* Feedback del estado del envío */}
+              {contactStatus.success && (
+                <p className="text-green-500 text-sm mt-4">{contactStatus.success}</p>
+              )}
+              {contactStatus.error && (
+                <p className="text-red-500 text-sm mt-4">{contactStatus.error}</p>
+              )}
             </form>
           </div>
         </div>
       </motion.section>
-
-      {/* Display Formatted Data (for demonstration) */}
-      {formattedData && (
-        <div className="container mx-auto px-6 py-8">
-          <h3 className="text-2xl font-bold text-gray-800 mb-4">Dados Formatados (Demo):</h3>
-          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">{JSON.stringify(formattedData, null, 2)}</pre>
-        </div>
-      )}
     </div>
-  )
-}
+  );
+};
 
-export default Contact
-
+export default Contact;
