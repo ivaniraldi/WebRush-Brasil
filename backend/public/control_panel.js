@@ -190,6 +190,7 @@ async function saveBlog() {
 }
 
 async function editBlog(id) {
+    console.log(id, token)
     const token = localStorage.getItem('token');
     try {
         const blog = await fetchWithErrorHandling(`${API_URL}/blog/${id}`, {
@@ -298,7 +299,7 @@ async function loadServices() {
             <tr>
                 <td>${service.id}</td>
                 <td>${service.name}</td>
-                <td>R$ ${service.price.toFixed(2)}</td>
+                <td>R$ ${Number(service.price).toFixed(2)}</td>
                 <td>${new Date(service.created_at).toLocaleDateString()}</td>
                 <td>
                     <button class="btn btn-sm btn-outline-primary me-2" onclick="editService('${service.id}')">

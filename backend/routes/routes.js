@@ -91,6 +91,24 @@ router.get("/blog", async (req, res) => {
   }
 });
 
+// GET /api/blog/:id (Ya implementado)
+router.get("/blog/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await pool.query(
+      "SELECT * FROM blog_posts WHERE id = $1 AND published = true",
+      [id]
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Post no encontrado" });
+    }
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("Error al obtener post:", err.stack);
+    res.status(500).json({ error: "Error al obtener el post" });
+  }
+});
+
 // GET /api/blog/:slug (Ya implementado)
 router.get("/blog/:slug", async (req, res) => {
   const { slug } = req.params;
