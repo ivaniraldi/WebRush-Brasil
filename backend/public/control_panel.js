@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5173/api'; // Adjust to your backend port
+const API_URL = 'https://webrush-brasil-backend.onrender.com/api'; // Adjust to your backend port
 
 // Utility Functions
 function showLoading(tableId) {
