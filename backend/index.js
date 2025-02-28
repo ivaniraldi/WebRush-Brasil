@@ -1,3 +1,8 @@
+// Archivo: index.js
+// Descripción: Configuración principal del servidor para WebRush Brasil
+// Autor: Ivan Iraldi (con asistencia de Grok)
+// Dependencias: express, cors, rutas, middleware de autenticación
+
 const express = require('express');
 const cors = require('cors');
 const routes = require('./routes/routes'); // Rutas de la API
@@ -5,27 +10,35 @@ const { authMiddleware } = require('./middlewares/auth'); // Middleware de auten
 
 const app = express();
 
+// Configuración de CORS
+const corsOptions = {
+  origin: [
+    'https://www.webrushbrasil.com.br', // Dominio de producción
+    'http://localhost:3000', // Para desarrollo local (ajusta el puerto si es diferente)
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
+  credentials: true, // Si planeas usar cookies o autenticación con credenciales
+};
+app.use(cors(corsOptions)); // Aplicar CORS con opciones específicas
+
 // Middlewares globales
-app.use(cors()); // Permitir solicitudes desde cualquier origen (ajustable en producción)
 app.use(express.json()); // Parsear cuerpos JSON en las solicitudes
 
 // Aplicar rutas con autenticación selectiva
 app.use('/api', (req, res, next) => {
-  // Depuración para confirmar método y ruta
   console.log(`Método: ${req.method}, Ruta: ${req.path}`);
-
-  // Rutas públicas no requieren autenticación
   const isPublicRoute =
     (req.method === 'GET' && (
       req.path.startsWith('/blog') ||
       req.path.startsWith('/portfolio') ||
       req.path.startsWith('/services')
     )) ||
-    (req.method === 'POST' && req.path === '/contacts'); // Ajustado para exactitud
+    (req.method === 'POST' && req.path === '/contacts');
 
   if (isPublicRoute) {
     console.log('Ruta pública detectada, saltando autenticación');
-    return next(); // Pasar directamente a las rutas públicas
+    return next();
   }
 
   console.log('Ruta protegida, aplicando autenticación');
