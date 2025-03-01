@@ -100,9 +100,9 @@ const Contact = () => {
 
   // Información de contacto y horarios
   const contactInfo = [
-    { icon: "phone", title: "Telefone", content: "+55 (11) 9999-8888" },
-    { icon: "mail", title: "Email", content: "contato@empresa.com.br" },
-    { icon: "map-pin", title: "Endereço", content: "Av. Paulista, 1000 - São Paulo, SP" },
+    { icon: "phone", title: "Telefone", content: "+55 (48) 99225-9119" },
+    { icon: "mail", title: "Email", content: "contato@webrushbrasil.com.br" },
+    { icon: "map-pin", title: "Endereço", content: "Palhoça - SC " },
   ];
 
   // Horarios de atención

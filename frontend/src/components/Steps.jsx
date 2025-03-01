@@ -42,7 +42,7 @@ const Steps = () => {
   ]
 
   return (
-    <section className="py-24 bg-gray-100" aria-label="Processo de contratação de site">
+    <section className="py-24 bg-gradient-to-b from-white to-gray-100 text-white">
       <div className="container mx-auto px-4">
         <motion.h2
           className="text-4xl md:text-5xl font-black text-center mb-12 text-green-600"
