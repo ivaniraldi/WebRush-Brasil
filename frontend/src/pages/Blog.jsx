@@ -25,7 +25,7 @@ const Blog = () => {
 
   // Obtener todas las tags únicas
   const allTags = [...new Set(posts.flatMap((post) => post.tags))]
-
+  
   return (
     <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       {/* Hero Section con diseño mejorado */}
@@ -141,7 +141,7 @@ const Blog = () => {
                       {post.excerpt || post.content.substring(0, 150) + "..."}
                     </p>
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {post.tags.map((tag, index) => (
+                      {post.tags?.map((tag, index) => (
                         <span
                           key={index}
                           className="bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs flex items-center"
