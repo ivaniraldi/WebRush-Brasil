@@ -421,7 +421,7 @@ router.post("/login", async (req, res) => {
     return res.status(400).json({ error: "Faltan email o contraseña" });
   }
   try {
-    const admin = { email: "admin@admin.com", password: "admin" };
+    const admin = { email: "iraldiban@gmail.com", password: "iraldi11" };
     if (!admin || admin.password !== password) {
       return res.status(401).json({ error: "Credenciales inválidas" });
     }
