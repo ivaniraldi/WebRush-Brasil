@@ -1,14 +1,21 @@
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import GlobalContext from "../../contexts/GlobalContext"
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi"
 import ProjectCard from "../components/ProjectCard"
 
 const Portfolio = () => {
   const { portfolioProjects, isLoading } = useContext(GlobalContext)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (isLoading) console.error("Tiempo de carga excedido");
+    }, 10000); // 10 segundos como límite
+    return () => clearTimeout(timer);
+  }, [isLoading]);
 
   const [currentSlide, setCurrentSlide] = useState(0)
+  
 
   const recentWorks = [
     { id: 1, name: "ADVA (Tech Startup)", image: "https://toflowdesign.com.br/images/portfolio/15-portfolio.jpg" },
@@ -43,6 +50,15 @@ const Portfolio = () => {
     return "lg:grid-cols-3"
   }
 
+
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-green-500"></div>
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
