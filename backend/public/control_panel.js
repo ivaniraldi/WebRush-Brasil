@@ -1,4 +1,4 @@
-const API_URL = 'https://webrush-brasil-backend.onrender.com/api'; // Ajusta según tu entorno
+const API_URL = 'https://web-rush-brasil-backend.vercel.app/api'; // Ajusta según tu entorno
 
 // Utility Functions
 function showLoading(tableId) {
