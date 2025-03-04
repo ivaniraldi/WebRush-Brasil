@@ -1,6 +1,4 @@
 /* eslint-disable react/prop-types */
-"use client"
-
 import { motion } from "framer-motion"
 import { ExternalLink, Github, ArrowUpRight } from "lucide-react"
 import { Link } from "react-router-dom"
