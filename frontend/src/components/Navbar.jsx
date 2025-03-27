@@ -119,26 +119,36 @@ function Navbar() {
           {/* Botón de menú móvil */}
           <div className="lg:hidden">
             <button 
-              className="text-gray-300 hover:text-neon-green focus:outline-none transition-colors duration-200"
+              className="relative w-16 h-10 flex items-center justify-center focus:outline-none group rounded-md"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
             >
-              <motion.svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                className="h-6 w-6" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor" 
-                animate={{ rotate: isOpen ? 90 : 0 }} 
-                transition={{ duration: 0.3 }}
-              >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d={isOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'} 
+              <div className="relative w-6 h-6">
+                <motion.span
+                  className="absolute w-6 h-0.5 bg-gray-300 rounded-full transform origin-center transition-colors duration-300 group-hover:bg-neon-green"
+                  animate={{
+                    y: isOpen ? 10 : 0,
+                    rotate: isOpen ? 45 : 0
+                  }}
+                  transition={{ duration: 0.3 }}
                 />
-              </motion.svg>
+                <motion.span
+                  className="absolute w-6 h-0.5 bg-gray-300 rounded-full top-2.5 transform origin-center transition-colors duration-300 group-hover:bg-neon-green"
+                  animate={{
+                    opacity: isOpen ? 0 : 1
+                  }}
+                  transition={{ duration: 0.2 }}
+                />
+                <motion.span
+                  className="absolute w-6 h-0.5 bg-gray-300 rounded-full top-5 transform origin-center transition-colors duration-300 group-hover:bg-neon-green"
+                  animate={{
+                    y: isOpen ? -8 : 0,
+                    rotate: isOpen ? -45 : 0
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+              </div>
+              <div className="absolute inset-0 bg-neon-green/0 rounded-full transition-colors duration-300 group-hover:bg-neon-green/10"></div>
             </button>
           </div>
         </div>
