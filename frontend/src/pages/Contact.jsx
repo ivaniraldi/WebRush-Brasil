@@ -29,7 +29,7 @@ const Contact = () => {
       { id: "premium", name: "Premium", price: "Personalizado", description: "Solução completa personalizada" }
     ],
     marketing: [
-      { id: "basic", name: "Básico", price: "R$ 1.500", description: "Gestão básica de redes sociais" },
+      { id: "basic", name: "Básico", price: "R$ 499", description: "Gestão básica de redes sociais" },
       { id: "pro", name: "Profissional", price: "R$ 3.000", description: "Gestão completa + publicidade" },
       { id: "premium", name: "Premium", price: "Personalizado", description: "Estratégia completa personalizada" }
     ]
@@ -520,8 +520,7 @@ ${formData.additionalIdeas ? `Ideias Adicionais: ${formData.additionalIdeas}` : 
                               : 'bg-gray-700/50 border-gray-600 hover:border-neon-green/50 text-gray-300 hover:text-white'
                           }`}
                         >
-                          <h4 className="text-lg font-bold mb-2">{plan.name}</h4>
-                          <p className="text-2xl font-bold mb-2">{plan.price}</p>
+                          <h4 className="text-lg font-bold mb-2 text-wrap">{plan.name}</h4>
                           <p className="text-sm">{plan.description}</p>
                         </button>
                       ))}

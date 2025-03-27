@@ -188,6 +188,45 @@ const WebServices = () => {
   const [filterPrice, setFilterPrice] = useState("all");
   const modalRef = useRef(null);
 
+  // Proyectos manuales
+  const manualProjects = [
+    {
+      id: 1,
+      title: "Blog Urbano",
+      description: "Blog moderno y responsivo con diseño minimalista y optimizado para SEO",
+      image: "https://i.imgur.com/2VYp3iA.png",
+      project_url: "https://urbanblog.onrender.com/",
+      technologies: ["React", "TailwindCSS", "Node.js"]
+    },
+    {
+      id: 2,
+      title: "Landing Page",
+      description: "Landing page moderna con animaciones y diseño atractivo",
+      image: "https://i.imgur.com/wQpr0ve.png",
+      project_url: "https://landingpage-portfolio.onrender.com/",
+      technologies: ["React", "TailwindCSS", "Framer Motion"]
+    },
+    {
+      id: 3,
+      title: "E-commerce",
+      description: "Tienda online completa con carrito de compras y sistema de pagos",
+      image: "https://i.imgur.com/vWJ3EfK.png",
+      project_url: "https://ecommerce-portfolio-8cbo.onrender.com/",
+      technologies: ["React", "Node.js", "MongoDB"]
+    },
+    {
+      id: 4,
+      title: "Portfolio",
+      description: "Portfolio personal con diseño moderno y animaciones suaves",
+      image: "https://i.imgur.com/U0z8kZq.png",
+      project_url: "https://portfolio-portfolio-cfrk.onrender.com/",
+      technologies: ["React", "TailwindCSS", "Framer Motion"]
+    }
+  ];
+
+  // Usar los proyectos manuales en lugar de los de la API
+  const projects = manualProjects;
+
   // Filtrar servicios por precio
   const filteredServices = services.filter((service) => {
     const price = Number(service.price);
@@ -346,7 +385,7 @@ const WebServices = () => {
                   <LazyLoadImage
                     src={
                       service.image ||
-                      `https://source.unsplash.com/random/600x600/?website,${service.name}`
+                      `https://cdn.vectorstock.com/i/500p/16/87/dark-grunge-background-black-banner-or-backdrop-vector-54661687.jpg`
                     }
                     alt={service.name}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -667,104 +706,82 @@ const WebServices = () => {
             </p>
           </motion.div>
 
-          {portfolioProjects && portfolioProjects.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-              {portfolioProjects.map((project, index) => (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group relative overflow-hidden rounded-xl bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 hover:border-neon-green/50 transition-all duration-300 transform hover:scale-105"
-                >
-                  <div className="aspect-video relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/50 to-transparent z-10"></div>
-                    <img
-                      src={project.image || `https://source.unsplash.com/random/800x600/?website,${project.title}`}
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      {project.technologies && project.technologies.length > 0 && (
-                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-white/10 text-white border border-white/20">
-                          {project.technologies[0]}
-                        </span>
-                      )}
-                    </div>
-                    <h3 className="text-lg font-bold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-400 text-sm mb-3 line-clamp-2">
-                      {project.description || 'Descrição do projeto em breve...'}
-                    </p>
-                    <div className="flex justify-end">
-                      <Link
-                        to={`/portfolio/${project.id}`}
-                        className="group/btn relative bg-neon-green text-gray-900 font-bold py-1.5 px-3 rounded-lg transition-all duration-300 flex items-center gap-1.5 overflow-hidden text-sm"
-                      >
-                        <span className="relative z-10">Ver Projeto</span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-3.5 w-3.5 relative z-10 transition-transform duration-300 group-hover/btn:translate-x-1"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M14 5l7 7m0 0l-7 7m7-7H3"
-                          />
-                        </svg>
-                        <motion.div
-                          className="absolute inset-0 bg-white opacity-0 group-hover/btn:opacity-20 transition-opacity duration-300"
-                          initial={{ scale: 0 }}
-                          whileHover={{ scale: 1 }}
-                        />
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-neon-green to-neon-blue opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"
-                          initial={{ x: "-100%" }}
-                          whileHover={{ x: 0 }}
-                        />
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* Efecto de brillo al hover */}
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-tr from-white/0 via-white/30 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 transform -translate-x-full group-hover:translate-x-full z-5`}
-                    style={{ transitionDuration: "1.5s" }}
-                  ></div>
-                </motion.div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-neon-green/10 mb-4">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-8 w-8 text-neon-green"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group relative overflow-hidden rounded-xl bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 hover:border-neon-green/50 transition-all duration-300 transform hover:scale-105"
+              >
+                <div className="aspect-video relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/50 to-transparent z-10"></div>
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                </svg>
-              </div>
-              <p className="text-xl text-gray-400">
-                Nenhum projeto em destaque no momento
-              </p>
-            </div>
-          )}
+                </div>
+                <div className="p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    {project.technologies.map((tech, i) => (
+                      <span key={i} className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-white/10 text-white border border-white/20">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <h3 className="text-lg font-bold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm mb-3 line-clamp-2">
+                    {project.description}
+                  </p>
+                  <div className="flex justify-end">
+                    <a
+                      href={project.project_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group/btn relative bg-neon-green text-gray-900 font-bold py-1.5 px-3 rounded-lg transition-all duration-300 flex items-center gap-1.5 overflow-hidden text-sm"
+                    >
+                      <span className="relative z-10">Ver Projeto</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-3.5 w-3.5 relative z-10 transition-transform duration-300 group-hover/btn:translate-x-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        />
+                      </svg>
+                      <motion.div
+                        className="absolute inset-0 bg-white opacity-0 group-hover/btn:opacity-20 transition-opacity duration-300"
+                        initial={{ scale: 0 }}
+                        whileHover={{ scale: 1 }}
+                      />
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-neon-green to-neon-blue opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"
+                        initial={{ x: "-100%" }}
+                        whileHover={{ x: 0 }}
+                      />
+                    </a>
+                  </div>
+                </div>
+
+                {/* Efecto de brillo al hover */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-tr from-white/0 via-white/30 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 transform -translate-x-full group-hover:translate-x-full z-5`}
+                  style={{ transitionDuration: "1.5s" }}
+                ></div>
+              </motion.div>
+            ))}
+          </div>
 
           {/* Botón de ver todos los projetos */}
           <div className="flex justify-center mt-16">
