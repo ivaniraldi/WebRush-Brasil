@@ -36,7 +36,7 @@ const Footer = () => {
 
           {/* Columna 2 - Enlaces rápidos */}
           <div>
-            <h3 className="text-lg font-bold mb-4 text-white">Enlaces Rápidos</h3>
+            <h3 className="text-lg font-bold mb-4 text-white">Links Rápidos</h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/sites" className="text-gray-400 hover:text-neon-green transition-colors">

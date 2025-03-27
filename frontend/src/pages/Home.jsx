@@ -355,12 +355,12 @@ const DifferentialsSection = () => {
       icon: <FaChartLine className="w-8 h-8" />
     },
     {
-      title: "Equipo Especializado",
+      title: "Equipe Especializada",
       description: "Profissionais certificados em desenvolvimento web e marketing digital.",
       icon: <FaUsers className="w-8 h-8" />
     },
     {
-      title: "Soporte Dedicado",
+      title: "Suporte Dedicado",
       description: "Atendimento personalizado e suporte contínuo para seu sucesso.",
       icon: <FaRocket className="w-8 h-8" />
     }

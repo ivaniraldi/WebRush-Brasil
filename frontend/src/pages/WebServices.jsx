@@ -193,7 +193,7 @@ const WebServices = () => {
     {
       id: 1,
       title: "Blog Urbano",
-      description: "Blog moderno y responsivo con diseño minimalista y optimizado para SEO",
+      description: "Blog moderno e responsivo com design minimalista e otimizado para SEO",
       image: "https://i.imgur.com/2VYp3iA.png",
       project_url: "https://urbanblog.onrender.com/",
       technologies: ["React", "TailwindCSS", "Node.js"]
@@ -201,7 +201,7 @@ const WebServices = () => {
     {
       id: 2,
       title: "Landing Page",
-      description: "Landing page moderna con animaciones y diseño atractivo",
+      description: "Landing page moderna com animações e design atraente",
       image: "https://i.imgur.com/wQpr0ve.png",
       project_url: "https://landingpage-portfolio.onrender.com/",
       technologies: ["React", "TailwindCSS", "Framer Motion"]
@@ -209,20 +209,21 @@ const WebServices = () => {
     {
       id: 3,
       title: "E-commerce",
-      description: "Tienda online completa con carrito de compras y sistema de pagos",
+      description: "Loja online completa com carrinho de compras e sistema de pagamentos",
       image: "https://i.imgur.com/vWJ3EfK.png",
       project_url: "https://ecommerce-portfolio-8cbo.onrender.com/",
       technologies: ["React", "Node.js", "MongoDB"]
     },
     {
       id: 4,
-      title: "Portfolio",
-      description: "Portfolio personal con diseño moderno y animaciones suaves",
+      title: "Portfólio",
+      description: "Portfólio pessoal com design moderno e animações suaves",
       image: "https://i.imgur.com/U0z8kZq.png",
       project_url: "https://portfolio-portfolio-cfrk.onrender.com/",
       technologies: ["React", "TailwindCSS", "Framer Motion"]
     }
   ];
+  
 
   // Usar los proyectos manuales en lugar de los de la API
   const projects = manualProjects;

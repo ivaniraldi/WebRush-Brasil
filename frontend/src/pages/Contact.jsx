@@ -79,15 +79,15 @@ const Contact = () => {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const formattedMessage = `
+      const formattedMessage = `
 Tipo de Serviço: ${formData.serviceType === 'web' ? 'Desenvolvimento Web' : 'Marketing Digital'}
 Plano Escolhido: ${formData.plan}
-Telefone: ${formData.phone}
-Mensagem: ${formData.message}
+        Telefone: ${formData.phone}
+        Mensagem: ${formData.message}
 ${formData.additionalIdeas ? `Ideias Adicionais: ${formData.additionalIdeas}` : ''}
         `.trim();
 
-        const contactData = {
+      const contactData = {
           name: formData.fullName.trim(),
           email: formData.email.trim(),
           message: formattedMessage,
@@ -199,18 +199,18 @@ ${formData.additionalIdeas ? `Ideias Adicionais: ${formData.additionalIdeas}` : 
               CONTATO
             </span>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black mb-4 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-neon-green to-neon-blue">
-              Entre em Contato
+            Entre em Contato
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-gray-300">
-              Estamos aqui para transformar suas ideias em realidade. Nossa equipe está pronta para atender você.
+            Estamos aqui para transformar suas ideias em realidade. Nossa equipe está pronta para atender você.
             </p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-            >
-              <a 
-                href="#form-container" 
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+          >
+            <a 
+              href="#form-container" 
                 className="group relative bg-neon-green text-gray-900 font-bold py-4 px-8 rounded-lg transition-all duration-300 flex items-center justify-center text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 overflow-hidden mx-auto inline-flex"
               >
                 <span className="relative z-10">Fale Conosco</span>
@@ -539,7 +539,7 @@ ${formData.additionalIdeas ? `Ideias Adicionais: ${formData.additionalIdeas}` : 
                           <p className="text-sm">{plan.description}</p>
                         </button>
                       ))}
-                    </div>
+                      </div>
                   </motion.div>
                 )}
 

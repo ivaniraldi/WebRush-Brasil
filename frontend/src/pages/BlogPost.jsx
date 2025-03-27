@@ -38,7 +38,7 @@ const BlogPost = () => {
     transition: { duration: 0.6 },
   }
 
-  return (
+  return post?  (
     <div className="min-h-screen bg-gray-900 py-20">
       <div className="container mx-auto px-4">
         <motion.div
@@ -80,7 +80,7 @@ const BlogPost = () => {
             </div>
             <div className="flex items-center">
               <FiTag className="mr-2" />
-              {post.tags.join(", ")}
+              {post.tags?.join(", ") || "Sem tags"}
             </div>
           </motion.div>
 
@@ -107,8 +107,7 @@ const BlogPost = () => {
         </motion.div>
       </div>
     </div>
-  )
+  ) : null
 }
 
 export default BlogPost
-
