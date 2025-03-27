@@ -8,8 +8,25 @@ import Footer from "./components/Footer";
 import BlogPost from "./pages/BlogPost";
 import WebServices from "./pages/WebServices";
 import Marketing from "./pages/Marketing";
+import NotFound from "./pages/NotFound";
+import { Suspense, lazy } from "react";
 import CookieConsent from "react-cookie-consent";
 import { useState } from "react";
+
+// Lazy loading de componentes
+const LazyBlog = lazy(() => import("./pages/Blog"));
+const LazyPortfolio = lazy(() => import("./pages/Portfolio"));
+const LazyContact = lazy(() => import("./pages/Contact"));
+const LazyBlogPost = lazy(() => import("./pages/BlogPost"));
+const LazyWebServices = lazy(() => import("./pages/WebServices"));
+const LazyMarketing = lazy(() => import("./pages/Marketing"));
+
+// Componente de carga
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center min-h-screen bg-gray-900">
+    <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-neon-green"></div>
+  </div>
+);
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false); // Estado para controlar el modal
@@ -21,16 +38,19 @@ function App() {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <main className="flex-grow">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/portfolio" element={<Portfolio />} />
-          <Route path="/contato" element={<Contact />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-          <Route path="/sites" element={<WebServices />} />
-          <Route path="/marketing" element={<Marketing />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <Suspense fallback={<LoadingSpinner />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/blog" element={<LazyBlog />} />
+            <Route path="/portfolio" element={<LazyPortfolio />} />
+            <Route path="/contato" element={<LazyContact />} />
+            <Route path="/blog/:slug" element={<LazyBlogPost />} />
+            <Route path="/sites" element={<LazyWebServices />} />
+            <Route path="/marketing" element={<LazyMarketing />} />
+            <Route path="/404" element={<NotFound />} />
+            <Route path="*" element={<Navigate to="/404" replace />} />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
 

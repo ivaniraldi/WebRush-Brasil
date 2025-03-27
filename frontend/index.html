@@ -1,65 +1,72 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="cmyk">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
-    
-    <!-- Primary Meta Tags -->
-    <title>WebRush Brasil - Desenvolvimento Web Profissional e Acessível</title>
-    <meta name="title" content="WebRush Brasil - Desenvolvimento Web Profissional e Acessível" />
-    <meta name="description" content="Desenvolvimento web acessível para pequenos negócios, startups e empreendedores no Brasil. Sites modernos, rápidos e responsivos." />
-    <meta name="keywords" content="desenvolvimento web, sites profissionais, startups, negócios online, web design, acessível, barato, programador, freelancer" />
-    <meta name="robots" content="index, follow" />
-    <meta name="author" content="Ivan Iraldi" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="WebRush Brasil - Agência de Desenvolvimento Web Profissional. Especialistas em sites responsivos, e-commerce e aplicações web modernas." />
+    <meta name="keywords" content="desenvolvimento web, agência digital, sites responsivos, e-commerce, aplicações web, SEO, marketing digital" />
+    <meta name="author" content="WebRush Brasil" />
     <meta name="theme-color" content="#000000" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="language" content="Portuguese" />
-    <meta name="revisit-after" content="7 days" />
-
+    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://webrushbrasil.com.br" />
-    <meta property="og:title" content="WebRush Brasil - Desenvolvimento Web Profissional e Acessível" />
-    <meta property="og:description" content="Desenvolvimento web acessível para pequenos negócios, startups e empreendedores no Brasil. Sites modernos, rápidos e responsivos." />
-    <meta property="og:image" content="https://www.webrushbrasil.com.br/assets/logo-uSn3wV7B.png" />
-    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:url" content="https://webrush-brasil.vercel.app/" />
+    <meta property="og:title" content="WebRush Brasil - Agência de Desenvolvimento Web" />
+    <meta property="og:description" content="Transforme sua presença digital com soluções web profissionais e modernas." />
+    <meta property="og:image" content="https://i.imgur.com/2VYp3iA.png" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://webrushbrasil.com.br" />
-    <meta property="twitter:title" content="WebRush Brasil - Desenvolvimento Web Profissional e Acessível" />
-    <meta property="twitter:description" content="Desenvolvimento web acessível para pequenos negócios, startups e empreendedores no Brasil. Sites modernos, rápidos e responsivos." />
-    <meta property="twitter:image" content="https://www.webrushbrasil.com.br/assets/logo-uSn3wV7B.png" />
+    <meta property="twitter:url" content="https://webrush-brasil.vercel.app/" />
+    <meta property="twitter:title" content="WebRush Brasil - Agência de Desenvolvimento Web" />
+    <meta property="twitter:description" content="Transforme sua presença digital com soluções web profissionais e modernas." />
+    <meta property="twitter:image" content="https://i.imgur.com/2VYp3iA.png" />
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://i.imgur.com" />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- Optimização de carga de fontes -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" /></noscript>
+    <!-- PWA -->
+    <meta name="application-name" content="WebRush Brasil" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="WebRush Brasil" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
 
-    <!-- Script optimizado para React/Vite -->
-    <script type="module" src="/src/main.jsx" async defer></script>
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="/apple-touch-icon-167x167.png" />
+
+    <!-- Microsoft Tile -->
+    <meta name="msapplication-TileColor" content="#000000" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#000000" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://webrush-brasil.vercel.app/" />
+
+    <title>WebRush Brasil - Agência de Desenvolvimento Web Profissional</title>
   </head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XG7KFX2JBM"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-XG7KFX2JBM');
-</script>
-  
   <body>
     <div id="root"></div>
-
-    <!-- NoScript para usuarios com JavaScript desativado -->
-    <noscript>
-      <style> #root { display: block !important; }</style>
-      <div style="text-align: center; padding: 20px">
-        <p>Este site funciona melhor com JavaScript habilitado. Por favor, ative-o no seu navegador para uma experiência completa.</p>
-      </div>
-    </noscript>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

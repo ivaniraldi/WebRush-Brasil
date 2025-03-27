@@ -37,10 +37,22 @@ const Contact = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    
+    // Formatear el número de teléfono mientras se escribe
+    if (name === 'phone') {
+      const numbers = value.replace(/\D/g, '');
+      if (numbers.length <= 11) {
+        const formatted = numbers.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        setFormData(prev => ({ ...prev, [name]: formatted }));
+      }
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
+    
+    // Limpiar el error del campo cuando el usuario comienza a escribir
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
   };
 
   const validateForm = () => {
@@ -51,7 +63,11 @@ const Contact = () => {
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       tempErrors.email = "Email inválido";
     }
-    if (!formData.phone.trim()) tempErrors.phone = "Telefone é obrigatório";
+    if (!formData.phone.trim()) {
+      tempErrors.phone = "Telefone é obrigatório";
+    } else if (!/^\(\d{2}\) \d{5}-\d{4}$/.test(formData.phone)) {
+      tempErrors.phone = "Telefone inválido. Use o formato (00) 00000-0000";
+    }
     if (!formData.message.trim()) tempErrors.message = "Mensagem é obrigatória";
     if (!formData.plan) tempErrors.plan = "Por favor, selecione um plano";
     if (!formData.serviceType) tempErrors.serviceType = "Por favor, selecione o tipo de serviço";
@@ -95,7 +111,6 @@ ${formData.additionalIdeas ? `Ideias Adicionais: ${formData.additionalIdeas}` : 
         
       } catch (error) {
         console.error("Erro ao enviar mensagem:", error);
-        // Mostrar mensaje de error más específico al usuario
         setErrors({
           submit: error.response?.data?.error || "Erro ao enviar mensagem. Por favor, tente novamente."
         });

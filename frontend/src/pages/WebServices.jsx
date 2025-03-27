@@ -188,7 +188,7 @@ const WebServices = () => {
   const [filterPrice, setFilterPrice] = useState("all");
   const modalRef = useRef(null);
 
-  // Proyectos manuales
+  // Proyectos manuales con imágenes optimizadas
   const manualProjects = [
     {
       id: 1,
@@ -226,6 +226,11 @@ const WebServices = () => {
 
   // Usar los proyectos manuales en lugar de los de la API
   const projects = manualProjects;
+
+  // Función para manejar errores de carga de imágenes
+  const handleImageError = (e) => {
+    e.target.src = "https://cdn.vectorstock.com/i/500p/16/87/dark-grunge-background-black-banner-or-backdrop-vector-54661687.jpg";
+  };
 
   // Filtrar servicios por precio
   const filteredServices = services.filter((service) => {
@@ -383,13 +388,11 @@ const WebServices = () => {
 
                   {/* Imagen de fondo */}
                   <LazyLoadImage
-                    src={
-                      service.image ||
-                      `https://cdn.vectorstock.com/i/500p/16/87/dark-grunge-background-black-banner-or-backdrop-vector-54661687.jpg`
-                    }
+                    src={service.image || "https://cdn.vectorstock.com/i/500p/16/87/dark-grunge-background-black-banner-or-backdrop-vector-54661687.jpg"}
                     alt={service.name}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     effect="blur"
+                    onError={handleImageError}
                   />
 
                   {/* Contenido */}
