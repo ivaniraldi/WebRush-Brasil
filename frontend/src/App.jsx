@@ -6,6 +6,8 @@ import Portfolio from "./pages/Portfolio";
 import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
 import BlogPost from "./pages/BlogPost";
+import WebServices from "./pages/WebServices";
+import Marketing from "./pages/Marketing";
 import CookieConsent from "react-cookie-consent";
 import { useState } from "react";
 
@@ -25,6 +27,8 @@ function App() {
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/contato" element={<Contact />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/sites" element={<WebServices />} />
+          <Route path="/marketing" element={<Marketing />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

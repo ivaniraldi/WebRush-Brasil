@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
   secure: true,
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+    pass: process.env.EMAIL_PASS || "kq?ij8Ta",
   },
 });
 
@@ -21,24 +21,55 @@ const transporter = nodemailer.createTransport({
 
 // POST /api/contacts
 router.post("/contacts", async (req, res) => {
-  const { name, email, message } = req.body;
-  if (!name || !email || !message) {
-    return res.status(400).json({ error: "Faltan datos requeridos: name, email o message" });
-  }
-  if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email)) {
-    return res.status(400).json({ error: "Email inválido" });
-  }
-  if (name.length > 100 || message.length > 1000) {
-    return res.status(400).json({ error: "Nombre o mensaje demasiado largo" });
-  }
   try {
+    const { name, email, message } = req.body;
+    
+    // Validación de datos requeridos
+    if (!name || !email || !message) {
+      return res.status(400).json({ 
+        error: "Faltan datos requeridos. Por favor, complete todos los campos." 
+      });
+    }
+
+    // Validación de formato de email
+    if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email)) {
+      return res.status(400).json({ 
+        error: "Email inválido. Por favor, insira um email válido." 
+      });
+    }
+
+    // Validación de longitud
+    if (name.length > 100) {
+      return res.status(400).json({ 
+        error: "Nome muito longo. Máximo 100 caracteres." 
+      });
+    }
+    if (message.length > 1000) {
+      return res.status(400).json({ 
+        error: "Mensagem muito longa. Máximo 1000 caracteres." 
+      });
+    }
+
+    // Verificar conexión con la base de datos
+    try {
+      await pool.query('SELECT 1');
+    } catch (dbError) {
+      console.error("Error de conexión con la base de datos:", dbError);
+      return res.status(500).json({ 
+        error: "Erro de conexão com o banco de dados. Tente novamente mais tarde." 
+      });
+    }
+
+    // Insertar en la base de datos
     const result = await pool.query(
       "INSERT INTO contacts (name, email, message) VALUES ($1, $2, $3) RETURNING *",
-      [name, email, message]
+      [name.trim(), email.trim(), message.trim()]
     );
+
+    // Configurar y enviar email
     const mailOptions = {
-      from: "contato@webrushbrasil.com.br",
-      to: "contato@webrushbrasil.com.br",
+      from: process.env.EMAIL_USER || "contato@webrushbrasil.com.br",
+      to: process.env.EMAIL_USER || "contato@webrushbrasil.com.br",
       subject: `Novo contato de ${name}`,
       text: `
 📩 Novo contato recebido!
@@ -51,11 +82,24 @@ ${message}
 🚀 Desenvolvimento Web a Baixo Custo
       `,
     };
-    await transporter.sendMail(mailOptions);
-    res.status(201).json(result.rows[0]);
+
+    try {
+      await transporter.sendMail(mailOptions);
+    } catch (emailError) {
+      console.error("Error al enviar email:", emailError);
+      // No enviamos error al cliente si falla el email, solo lo registramos
+    }
+
+    res.status(201).json({
+      message: "Mensagem enviada com sucesso!",
+      contact: result.rows[0]
+    });
+
   } catch (err) {
-    console.error("Error al procesar contacto:", err.stack);
-    res.status(500).json({ error: "No se pudo procesar el contacto" });
+    console.error("Erro ao processar contato:", err);
+    res.status(500).json({ 
+      error: "Erro ao processar sua mensagem. Por favor, tente novamente mais tarde." 
+    });
   }
 });
 

@@ -1,66 +1,49 @@
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
-import { useContext, useEffect, useState } from "react"
-import GlobalContext from "../../contexts/GlobalContext"
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi"
-import ProjectCard from "../components/ProjectCard"
+import { FaRocket, FaCode, FaChartLine, FaUsers, FaLightbulb, FaHandshake } from "react-icons/fa"
 
-const Portfolio = () => {
-  const { portfolioProjects, isLoading } = useContext(GlobalContext)
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (isLoading) console.error("Tiempo de carga excedido");
-    }, 10000); // 10 segundos como límite
-    return () => clearTimeout(timer);
-  }, [isLoading]);
-
-  const [currentSlide, setCurrentSlide] = useState(0)
-  
-
-  const recentWorks = [
-    { id: 1, name: "ADVA (Tech Startup)", image: "https://toflowdesign.com.br/images/portfolio/15-portfolio.jpg" },
-    { id: 2, name: "Fashion Blog", image: "https://toflowdesign.com.br/images/portfolio/05-portfolio.jpg" },
+const AboutUs = () => {
+  const services = [
     {
-      id: 3,
-      name: "Restaurant Ordering System",
-      image: "https://toflowdesign.com.br/images/portfolio/09-portfolio.jpg",
+      icon: <FaCode className="w-8 h-8" />,
+      title: "Desenvolvimento Web",
+      description: "Criamos sites modernos e funcionais que destacam sua marca e geram resultados.",
+      link: "/sites"
     },
+    {
+      icon: <FaChartLine className="w-8 h-8" />,
+      title: "Marketing Digital",
+      description: "Estratégias eficazes para aumentar sua presença online e alcançar seus objetivos.",
+      link: "/marketing"
+    },
+    {
+      icon: <FaRocket className="w-8 h-8" />,
+      title: "Otimização SEO",
+      description: "Melhoramos sua visibilidade nos mecanismos de busca para atrair mais clientes.",
+      link: "/marketing"
+    }
   ]
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-green-500"></div>
-      </div>
-    )
-  }
+  const values = [
+    {
+      icon: <FaUsers className="w-8 h-8" />,
+      title: "Foco no Cliente",
+      description: "Seu sucesso é nossa prioridade. Trabalhamos em estreita colaboração para entender suas necessidades."
+    },
+    {
+      icon: <FaLightbulb className="w-8 h-8" />,
+      title: "Inovação Constante",
+      description: "Mantemos-nos atualizados com as últimas tendências e tecnologias para oferecer o melhor."
+    },
+    {
+      icon: <FaHandshake className="w-8 h-8" />,
+      title: "Compromisso Total",
+      description: "Dedicamos-nos a entregar resultados excepcionais em cada projeto que empreendemos."
+    }
+  ]
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev === recentWorks.length - 1 ? 0 : prev + 1))
-  }
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? recentWorks.length - 1 : prev - 1))
-  }
-
-  // Función para determinar el número de columnas basado en la cantidad de proyectos
-  const getGridColumns = (projectCount) => {
-    if (projectCount % 3 === 0) return "lg:grid-cols-3"
-    if (projectCount % 2 === 0) return "lg:grid-cols-2"
-    return "lg:grid-cols-3"
-  }
-
-
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-green-500"></div>
-      </div>
-    );
-  }
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-900">
       {/* Hero Section */}
       <motion.section
         className="relative min-h-[80vh] flex items-center justify-center overflow-hidden"
@@ -69,7 +52,7 @@ const Portfolio = () => {
         transition={{ duration: 1 }}
       >
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-green-800/90 to-green-500/80 z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-800/80 z-10"></div>
           <motion.div
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
@@ -78,7 +61,7 @@ const Portfolio = () => {
           >
             <img
               src="https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHBvcnRmb2xpbyUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D"
-              alt="Portfolio background"
+              alt="Background da agência"
               className="w-full h-full object-cover"
             />
           </motion.div>
@@ -90,7 +73,7 @@ const Portfolio = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
-            MEU PORTFÓLIO
+            NOSSA HISTÓRIA
           </motion.h1>
           <motion.p
             className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto"
@@ -98,26 +81,14 @@ const Portfolio = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
           >
-            Transformando ideias em experiências digitais incríveis e inovadoras
+            Transformando negócios através de soluções digitais inovadoras
           </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-          >
-            <Link
-              to="#projects"
-              className="bg-white text-green-700 font-bold py-3 px-8 rounded-full hover:bg-green-50 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-            >
-              Ver Projetos
-            </Link>
-          </motion.div>
         </div>
       </motion.section>
 
-      {/* About Me Section */}
+      {/* About Us Section */}
       <motion.section
-        className="py-24 bg-gray-50"
+        className="py-24 bg-gray-800"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -132,62 +103,17 @@ const Portfolio = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-4xl font-black mb-6 text-green-600">Sobre Mim</h2>
-              <p className="text-xl text-gray-600 mb-6">
-                Sou um desenvolvedor web full-stack apaixonado por criar soluções digitais inovadoras e eficientes. Com
-                mais de 5 anos de experiência em diversas tecnologias, estou sempre buscando novos desafios e
-                aprendizados para entregar projetos excepcionais.
+              <h2 className="text-4xl font-black mb-6 text-neon-green">Sobre Nós</h2>
+              <p className="text-xl text-gray-300 mb-6">
+                Na WebRush Brasil, somos mais que uma agência digital. Somos uma equipe apaixonada de profissionais
+                dedicados a transformar ideias em experiências digitais excepcionais. Com anos de experiência no
+                mercado, já ajudamos centenas de empresas a alcançarem seus objetivos no mundo digital.
               </p>
-              <ul className="space-y-3 text-gray-600">
-                <li className="flex items-center">
-                  <svg
-                    className="w-6 h-6 mr-2 text-green-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  Especialista em React, Node.js e Next.js
-                </li>
-                <li className="flex items-center">
-                  <svg
-                    className="w-6 h-6 mr-2 text-green-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  Experiência em design responsivo e UI/UX
-                </li>
-                <li className="flex items-center">
-                  <svg
-                    className="w-6 h-6 mr-2 text-green-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  Foco em performance, SEO e acessibilidade
-                </li>
-                <li className="flex items-center">
-                  <svg
-                    className="w-6 h-6 mr-2 text-green-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  Integração de APIs e desenvolvimento de backends robustos
-                </li>
-              </ul>
+              <p className="text-xl text-gray-300 mb-6">
+                Nossa missão é simples mas poderosa: impulsionar o crescimento de nossos clientes através
+                de soluções digitais inovadoras e eficazes. Acreditamos na combinação perfeita entre
+                criatividade e tecnologia para criar resultados extraordinários.
+              </p>
             </motion.div>
             <motion.div
               className="md:w-1/2"
@@ -197,110 +123,95 @@ const Portfolio = () => {
               transition={{ duration: 0.6 }}
             >
               <img
-                src="https://media.licdn.com/dms/image/v2/D4D03AQHIjASCp0HT9g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1685108338341?e=1746057600&v=beta&t=IyetpjMUko0mTWNUwfJ1M9nN-Cz9nP5rmX0t2M3sbSI"
-                alt="Developer profile"
-                className="rounded-full w-64 h-64 mx-auto shadow-xl border-4 border-green-500"
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                alt="Nossa equipe"
+                className="rounded-lg shadow-xl"
               />
             </motion.div>
           </div>
         </div>
       </motion.section>
 
-      {/* Projects Section */}
+      {/* Services Section */}
       <motion.section
-        id="projects"
-        className="py-24 bg-gray-50"
+        className="py-24 bg-gray-900"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-black mb-12 text-center text-gray-800">Projetos em Destaque</h2>
-          <div
-            className={`grid grid-cols-1 md:grid-cols-2 ${getGridColumns(portfolioProjects.length)} gap-8 justify-items-center`}
-          >
-            {portfolioProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+          <h2 className="text-4xl font-black mb-12 text-center text-white">Nossos Serviços</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {services.map((service, index) => (
+              <motion.div
+                key={index}
+                className="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
+              >
+                <div className="text-neon-green mb-4">{service.icon}</div>
+                <h3 className="text-xl font-bold text-white mb-2">{service.title}</h3>
+                <p className="text-gray-300 mb-4">{service.description}</p>
+                <Link
+                  to={service.link}
+                  className="text-neon-green hover:text-neon-blue transition-colors duration-300"
+                >
+                  Saiba mais →
+                </Link>
+              </motion.div>
             ))}
           </div>
         </div>
       </motion.section>
 
-      {/* Recent Works Section - Carousel */}
+      {/* Values Section */}
       <motion.section
-        className="py-24 bg-gray-50 hidden"
+        className="py-24 bg-gray-800"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-black mb-12 text-center text-gray-800">Trabalhos Recentes</h2>
-          <div className="relative">
-            <div className="overflow-hidden">
+          <h2 className="text-4xl font-black mb-12 text-center text-white">Nossos Valores</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {values.map((value, index) => (
               <motion.div
-                className="flex transition-transform duration-300 ease-in-out"
-                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                key={index}
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
               >
-                {recentWorks.map((work, index) => (
-                  <div key={work.id || index} className="w-full flex-shrink-0">
-                    <div className="bg-white rounded-lg overflow-hidden shadow-xl mx-4">
-                      <img
-                        src={work.image || "/placeholder.svg"}
-                        alt={work.name}
-                        className="w-full h-64 object-cover"
-                      />
-                      <div className="p-6">
-                        <h3 className="text-2xl font-bold text-gray-800 mb-4">{work.name}</h3>
-                        <p className="text-gray-600 mb-4">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at velit maximus, molestie est
-                          a, tempor magna.
-                        </p>
-                        <Link
-                          to={`/work/${work.id}`}
-                          className="btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300"
-                        >
-                          Ver Projeto
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                <div className="text-neon-green mb-4 flex justify-center">{value.icon}</div>
+                <h3 className="text-xl font-bold text-white mb-2">{value.title}</h3>
+                <p className="text-gray-300">{value.description}</p>
               </motion.div>
-            </div>
-            <button
-              onClick={prevSlide}
-              className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition duration-300"
-            >
-              <FiChevronLeft size={24} />
-            </button>
-            <button
-              onClick={nextSlide}
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition duration-300"
-            >
-              <FiChevronRight size={24} />
-            </button>
+            ))}
           </div>
         </div>
       </motion.section>
 
       {/* Call to Action */}
       <motion.section
-        className="py-24 bg-gradient-to-r from-green-600 to-green-800 text-white"
+        className="py-24 bg-gradient-to-r from-gray-900 to-gray-800 text-white"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-black mb-8">Pronto para Começar Seu Projeto?</h2>
+          <h2 className="text-4xl md:text-5xl font-black mb-8">Pronto para Transformar seu Negócio?</h2>
           <p className="text-xl mb-10 max-w-2xl mx-auto">
-            Vamos trabalhar juntos para criar uma experiência digital única que impulsione o sucesso do seu negócio.
+            Vamos trabalhar juntos para criar uma presença digital que se destaque e gere resultados.
           </p>
           <Link
             to="/contato"
-            className="btn bg-white text-green-700 hover:bg-green-50 font-bold py-3 px-8 rounded-full transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            className="inline-block bg-neon-green text-gray-900 font-bold py-3 px-8 rounded-full hover:bg-neon-blue transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
             Entre em Contato
           </Link>
@@ -310,5 +221,5 @@ const Portfolio = () => {
   )
 }
 
-export default Portfolio
+export default AboutUs
 
