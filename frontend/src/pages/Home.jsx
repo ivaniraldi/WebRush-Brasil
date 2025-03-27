@@ -162,9 +162,11 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-6 leading-tight">
-            TRANSFORMANDO <br className="hidden sm:block" />
+            {/*Transformamos cliques em conexões e resultados. */}
+            
+            TRANSFORMAMOS <br className="hidden sm:block" />
             <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-neon-green relative inline-block">
-              IDEIAS
+              CLIQUES
               <motion.span
                 className="absolute -bottom-2 left-0 w-full h-1 bg-neon-green"
                 initial={{ width: 0 }}
@@ -173,7 +175,7 @@ const HeroSection = () => {
               />
             </span>{" "}
             <br className="hidden sm:block" />
-            EM REALIDADE DIGITAL
+            <span className="">EM CONEXÕES E RESULTADOS</span>
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl font-light mb-10 max-w-2xl">
             Desenvolvimento web e marketing digital que impulsionam seu negócio para o próximo nível.

@@ -29,8 +29,8 @@ const Footer = () => {
             <Link to="/" className="text-2xl font-bold text-white hover:text-neon-green transition-colors">
               WebRush Brasil
             </Link>
-            <p className="text-gray-400">
-              Transformando presença digital com soluções inovadoras e resultados excepcionais.
+            <p className="text-gray-400 mt-2">
+            Transformamos <span className="text-neon-green font-bold">cliques</span> em <span className="font-bold">conexões</span> e <span className="font-bold">resultados</span>. 
             </p>
           </div>
 
