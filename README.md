@@ -125,12 +125,6 @@ Las contribuciones son bienvenidas. Por favor, sigue estos pasos:
 
 Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
 
-## 👥 Equipo
-
-- **Desarrollador Principal** - [Tu Nombre](https://github.com/tu-usuario)
-- **Diseñador UI/UX** - [Nombre del Diseñador](https://github.com/designer)
-- **Desarrollador Backend** - [Nombre del Backend Dev](https://github.com/backend-dev)
-
 ## 📞 Contacto
 
 - 📧 Email: contato@webrushbrasil.com.br
