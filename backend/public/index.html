@@ -108,27 +108,27 @@
             </div>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#" onclick="showSection('dashboard')">
+                    <a class="nav-link active" href="#" data-action="show-dashboard">
                         <i class="fas fa-tachometer-alt me-2"></i> Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="showSection('blogs')">
+                    <a class="nav-link" href="#" data-action="show-blogs">
                         <i class="fas fa-blog me-2"></i> Blogs
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="showSection('projects')">
+                    <a class="nav-link" href="#" data-action="show-projects">
                         <i class="fas fa-project-diagram me-2"></i> Projects
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="showSection('services')">
+                    <a class="nav-link" href="#" data-action="show-services">
                         <i class="fas fa-concierge-bell me-2"></i> Services
                     </a>
                 </li>
                 <li class="nav-item mt-4">
-                    <a class="nav-link text-danger" href="#" onclick="logout()">
+                    <a class="nav-link text-danger" href="#" data-action="logout">
                         <i class="fas fa-sign-out-alt me-2"></i> Logout
                     </a>
                 </li>
@@ -469,6 +469,30 @@
                 loadDashboardData();
                 showSection('dashboard');
             }
+
+            // Attach event listeners
+            document.querySelectorAll('[data-action]').forEach(element => {
+                element.addEventListener('click', (event) => {
+                    const action = event.currentTarget.getAttribute('data-action');
+                    switch(action) {
+                        case 'show-dashboard':
+                            showSection('dashboard');
+                            break;
+                        case 'show-blogs':
+                            showSection('blogs');
+                            break;
+                        case 'show-projects':
+                            showSection('projects');
+                            break;
+                        case 'show-services':
+                            showSection('services');
+                            break;
+                        case 'logout':
+                            logout();
+                            break;
+                    }
+                });
+            });
         });
 
         // Show section and update active state
@@ -482,7 +506,7 @@
             }
             document.querySelectorAll('.sidebar .nav-link').forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('onclick').includes(sectionName)) {
+                if (link.getAttribute('data-action').includes(sectionName)) {
                     link.classList.add('active');
                 }
             });

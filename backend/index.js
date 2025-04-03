@@ -25,19 +25,27 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://cdnjs.cloudflare.com"],
+      scriptSrcAttr: ["'self'", "'unsafe-inline'"], // Allow inline event handlers
+      styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://cdnjs.cloudflare.com"],
+      fontSrc: ["'self'", "https://cdnjs.cloudflare.com", "data:"],
       imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'", "https://www.webrushbrasil.com.br", "http://localhost:5173"],
+      connectSrc: [
+        "'self'",
+        "https://www.webrushbrasil.com.br",
+        "http://localhost:5174",
+        "https://web-rush-brasil-backend.vercel.app" // Allow Vercel backend
+      ],
     },
   },
+  crossOriginEmbedderPolicy: false, // Optional: Disable COEP if needed
 }));
 
 // Configuración de CORS
 const corsOptions = {
   origin: [
     "https://www.webrushbrasil.com.br",
-    "http://localhost:5173",
+    "http://localhost:5174",
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"],
@@ -128,6 +136,6 @@ app.use((req, res) => {
 // Iniciar el servidor
 const PORT = process.env.PORT || 5174;
 app.listen(PORT, () => {
-  console.log(`[${new Date().toISOString()}] Servidor corriendo en el puerto ${PORT}`);
+  console.log(`[${new Date().toISOString()}] Servidor corriendo en el puerto ${PORT || 5174}`);
   console.log(`[${new Date().toISOString()}] Ambiente: ${process.env.NODE_ENV || 'development'}`);
 });

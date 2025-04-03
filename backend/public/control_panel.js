@@ -1,4 +1,4 @@
-const API_URL = 'https://web-rush-brasil-backend.vercel.app/api'; // Ajusta según tu entorno
+const API_URL = 'http://localhost:5174/api'; // Ajusta según tu entorno
 
 // Utility Functions
 function showLoading(tableId) {
@@ -446,3 +446,12 @@ function prepareCreateService() {
     document.getElementById('service-description').value = '';
     document.getElementById('service-price').value = '';
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Attach event listeners for navigation
+    document.querySelectorAll('[data-action="show-dashboard"]').forEach(el => {
+        el.addEventListener('click', () => showSection('dashboard'));
+    });
+    // Repeat for other sections (blogs, projects, services)
+    // ...existing code...
+});
