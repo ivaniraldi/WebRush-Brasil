@@ -81,14 +81,14 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-bold mb-4 text-white">Redes Sociais</h3>
             <div className="flex space-x-4">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-neon-green transition-colors">
+              <a href="https://www.facebook.com/profile.php?id=61574912904790" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-neon-green transition-colors">
                 <FaFacebook size={24} />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-neon-green transition-colors">
+              <a href="https://www.instagram.com/webrush_br/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-neon-green transition-colors">
                 <FaInstagram size={24} />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-neon-green transition-colors">
-                <FaTwitter size={24} />
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hidden text-gray-400 hover:text-neon-green transition-colors">
+                <FaLinkedin size={24} />
               </a>
             </div>
           </div>
