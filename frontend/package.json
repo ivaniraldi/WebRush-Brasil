@@ -12,6 +12,7 @@
   "dependencies": {
     "@ruffle-rs/ruffle": "^0.1.0-nightly.2025.3.4",
     "axios": "^1.8.1",
+    "emailjs": "^4.0.3",
     "framer-motion": "^12.4.10",
     "lucide-react": "^0.477.0",
     "react": "^19.0.0",
