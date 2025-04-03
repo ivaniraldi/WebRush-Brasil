@@ -34,11 +34,15 @@
 
 /* Estilos globales para el proyecto */
 body {
-  font-family: 'Montserrat', sans-serif; /* Fuente urbana */
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   min-height: 100vh;
   background-color: #0f172a;
   color: #ffffff;
 }
+
+
 
 /* Estilos para enlaces */
 a {
@@ -47,7 +51,7 @@ a {
 }
 
 a:hover {
-  color: #3b82f6;
+  color: #ffffff;
 }
 
 /* Estilos para títulos */
@@ -105,6 +109,12 @@ section {
 footer {
   background-color: #1e293b;
   border-top: 1px solid #334155;
+}
+
+.ubuntu-regular {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 @import "tailwindcss";

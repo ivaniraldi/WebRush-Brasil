@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import logo from '../assets/logo.png';
@@ -6,6 +6,19 @@ import { AnimatePresence } from 'framer-motion';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setIsVisible(currentScrollY < lastScrollY || currentScrollY <= 0);
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   const menuVariants = {
     hidden: { opacity: 0, y: -20 },
@@ -13,7 +26,15 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-gray-900/80 backdrop-blur-xl sticky top-0 z-50 border-b border-gray-800/50">
+    <nav 
+      className={`bg-gray-900/70 backdrop-blur-xl sticky pb-8 top-0 z-50 transition-transform duration-300 ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      }`}
+      style={{
+        WebkitMaskImage: "linear-gradient(to bottom, black 70%, transparent)",
+        maskImage: "linear-gradient(to bottom, black 70%, transparent)"
+      }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Links a la izquierda */}
@@ -54,22 +75,11 @@ function Navbar() {
             >
               Marketing
             </NavLink>
-            <NavLink 
-              to="/blog" 
-              className={({ isActive }) => 
-                `text-base font-medium transition-colors duration-200 ${
-                  isActive 
-                    ? 'text-neon-green border-b-2 border-neon-green' 
-                    : 'text-gray-300 hover:text-neon-green hover:border-b-2 hover:border-neon-green'
-                }`
-              }
-            >
-              Blog
-            </NavLink>
+
           </div>
 
           {/* Logo centrado */}
-          <div className="flex-1 flex justify-center">
+          <div className="flex-1 ms- flex justify-center">
             <Link to="/" className="relative group">
               <motion.div 
                 initial={{ scale: 1 }} 
@@ -90,6 +100,18 @@ function Navbar() {
 
           {/* Links a la derecha */}
           <div className="hidden lg:flex space-x-8">
+          <NavLink 
+              to="/blog" 
+              className={({ isActive }) => 
+                `text-base font-medium transition-colors duration-200 ${
+                  isActive 
+                    ? 'text-neon-green border-b-2 border-neon-green' 
+                    : 'text-gray-300 hover:text-neon-green hover:border-b-2 hover:border-neon-green'
+                }`
+              }
+            >
+              Blog
+            </NavLink>
             <NavLink 
               to="/portfolio" 
               className={({ isActive }) => 
@@ -117,15 +139,15 @@ function Navbar() {
           </div>
 
           {/* Botón de menú móvil */}
-          <div className="lg:hidden">
-            <button 
+          <div className="lg:hidden  bg-transparent">
+            <div 
               className="relative w-16 h-10 flex items-center justify-center focus:outline-none group rounded-md"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
             >
               <div className="relative w-6 h-6">
                 <motion.span
-                  className="absolute w-6 h-0.5 bg-gray-300 rounded-full transform origin-center transition-colors duration-300 group-hover:bg-neon-green"
+                  className="absolute w-6 h-0.5 bg-gray-300 rounded-full transform origin-center transition-colors duration-300 "
                   animate={{
                     y: isOpen ? 10 : 0,
                     rotate: isOpen ? 45 : 0
@@ -133,14 +155,14 @@ function Navbar() {
                   transition={{ duration: 0.3 }}
                 />
                 <motion.span
-                  className="absolute w-6 h-0.5 bg-gray-300 rounded-full top-2.5 transform origin-center transition-colors duration-300 group-hover:bg-neon-green"
+                  className="absolute w-6 h-0.5 bg-gray-300 rounded-full top-2.5 transform origin-center transition-colors duration-300 "
                   animate={{
                     opacity: isOpen ? 0 : 1
                   }}
                   transition={{ duration: 0.2 }}
                 />
                 <motion.span
-                  className="absolute w-6 h-0.5 bg-gray-300 rounded-full top-5 transform origin-center transition-colors duration-300 group-hover:bg-neon-green"
+                  className="absolute w-6 h-0.5 bg-gray-300 rounded-full top-5 transform origin-center transition-colors duration-300 "
                   animate={{
                     y: isOpen ? -8 : 0,
                     rotate: isOpen ? -45 : 0
@@ -148,8 +170,8 @@ function Navbar() {
                   transition={{ duration: 0.3 }}
                 />
               </div>
-              <div className="absolute inset-0 bg-neon-green/0 rounded-full transition-colors duration-300 group-hover:bg-neon-green/10"></div>
-            </button>
+              <div className="absolute inset-0 rounded-full transition-colors duration-300"></div>
+            </div>
           </div>
         </div>
       </div>

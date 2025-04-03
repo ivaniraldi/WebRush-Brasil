@@ -61,8 +61,10 @@ const GlobalProvider = ({ children }) => {
   const sendContactMessage = async (contactData) => {
     setContactStatus({ loading: true, success: null, error: null });
 
+    console.log("Datos de contacto:", contactData); // Log para verificar los datos
     try {
       const response = await axios.post("/api/contacts", contactData);
+      console.log("Respuesta del servidor:", response.data); // Log para verificar la respuesta
       setContactStatus({
         loading: false,
         success: "Mensaje enviado con éxito",
@@ -77,6 +79,7 @@ const GlobalProvider = ({ children }) => {
         success: null,
         error: errorMessage,
       });
+      console.error("Error sending contact message:", error);
       throw error;
     }
   };

@@ -787,34 +787,7 @@ const WebServices = () => {
             ))}
           </div>
 
-          {/* Botón de ver todos los projetos */}
-          <div className="flex justify-center mt-16">
-            <Link
-              to="/portfolio"
-              className="group relative bg-gray-800 hover:bg-gray-700 text-white font-bold py-4 px-10 rounded-lg transition-all duration-300 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center border border-gray-700/50 hover:border-neon-green/50"
-            >
-              <span className="relative z-10">VER TODOS OS PROJETOS</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 ml-2 relative z-10 transition-transform duration-300 group-hover:translate-x-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
-                />
-              </svg>
-              <motion.div
-                className="absolute inset-0 bg-neon-green opacity-0 group-hover:opacity-10 transition-opacity duration-300"
-                initial={{ scale: 0 }}
-                whileHover={{ scale: 1 }}
-              />
-            </Link>
-          </div>
+
         </div>
       </section>
 
@@ -841,35 +814,29 @@ const WebServices = () => {
             <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
               Entre em contato conosco e descubra como podemos ajudar seu negócio a crescer online com soluções personalizadas e resultados excepcionais.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/contato"
-                className="group relative bg-neon-green text-gray-900 font-bold py-4 px-8 rounded-lg transition-all duration-300 flex items-center justify-center text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 overflow-hidden"
+            <div className="flex justify-center mt-16">
+            <Link
+              to="/contato"
+              className="group bg-gray-800 hover:bg-gray-700 text-white font-bold py-4 px-10 rounded-lg transition-all duration-300 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center border border-gray-700/50 hover:border-neon-green/50 hover:text-white"
+              aria-label="Ver todos os serviços"
+            >
+              VER EXEMPLOS
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
-                <span className="relative z-10">Solicitar Orçamento</span>
-                <motion.div
-                  className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"
-                  initial={{ scale: 0 }}
-                  whileHover={{ scale: 1 }}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
                 />
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-neon-green to-neon-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: 0 }}
-                />
-              </Link>
-              <Link
-                to="/portfolio"
-                className="group relative border-2 border-white hover:border-neon-green text-white hover:text-neon-green font-bold py-4 px-8 rounded-lg transition-all duration-300 flex items-center justify-center text-lg overflow-hidden"
-              >
-                <span className="relative z-10">Ver Projetos</span>
-                <motion.div
-                  className="absolute inset-0 bg-neon-green opacity-0 group-hover:opacity-10 transition-opacity duration-300"
-                  initial={{ scale: 0 }}
-                  whileHover={{ scale: 1 }}
-                />
-              </Link>
-            </div>
+              </svg>
+            </Link>
+          </div>
           </motion.div>
         </div>
       </section>

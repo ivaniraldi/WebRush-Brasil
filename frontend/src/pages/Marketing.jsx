@@ -513,7 +513,7 @@ const Marketing = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/contato"
-                className="group relative bg-neon-green text-gray-900 font-bold py-4 px-8 rounded-lg transition-all duration-300 flex items-center justify-center text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 overflow-hidden"
+                className=" mt-4 group relative border border-white bg-neon-green text-gray-900 font-bold py-4 px-8 rounded-lg transition-all duration-300 flex items-center justify-center text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 overflow-hidden"
               >
                 <span className="relative z-10">Solicitar Orçamento</span>
                 <motion.div
@@ -527,17 +527,7 @@ const Marketing = () => {
                   whileHover={{ x: 0 }}
                 />
               </Link>
-              <Link
-                to="/portfolio"
-                className="group relative border-2 border-white hover:border-neon-green text-white hover:text-neon-green font-bold py-4 px-8 rounded-lg transition-all duration-300 flex items-center justify-center text-lg overflow-hidden"
-              >
-                <span className="relative z-10">Ver Projetos</span>
-                <motion.div
-                  className="absolute inset-0 bg-neon-green opacity-0 group-hover:opacity-10 transition-opacity duration-300"
-                  initial={{ scale: 0 }}
-                  whileHover={{ scale: 1 }}
-                />
-              </Link>
+
             </div>
           </motion.div>
         </div>
