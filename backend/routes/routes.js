@@ -72,62 +72,27 @@ router.post("/contacts", async (req, res) => {
       to: "iraldiban@gmail.com",
       subject: `WebRush Brasil - Novo contato de ${name}`,
       text: `
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novo Contato Recebido</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            text-align: left;
-        }
-        h2 {
-            color: #333;
-        }
-        p {
-            color: #555;
-            line-height: 1.6;
-        }
-        .footer {
-            margin-top: 20px;
-            padding-top: 10px;
-            border-top: 1px solid #ddd;
-            text-align: center;
-            color: #888;
-        }
-        .highlight {
-            font-weight: bold;
-            color: #333;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h2>📩 Novo Contato Recebido!</h2>
-        <p><span class="highlight">Nome:</span> ${name}</p>
-        <p><span class="highlight">Email:</span> ${email}</p>
-        <p><span class="highlight">📬 Mensagem:</span></p>
-        <p>${message}</p>
-        <div class="footer">
-            🌐 <strong>WebRush Brasil</strong><br>
-            🚀 Desenvolvimento Web & Marketing Digital 📈
-        </div>
-    </div>
-</body>
-</html>
+---
 
+Asunto: Novo Contato Recebido – WebRush Brasil  
+
+Olá, equipe WebRush Brasil! 
+
+Vocês receberam uma nova mensagem de contato através do site. Seguem os detalhes:  
+
+📌 **Nome:** ${name}  
+📧 **Email:** ${email}  
+
+📬 **Mensagem:**  
+_${message}_  
+
+---  
+Atenciosamente,  
+🌐 **WebRush Brasil**  
+🚀 Desenvolvimento Web a Baixo Custo & Marketing Digital 📈 
+
+---
+${name}${email}${message}
       `,
     };
 
