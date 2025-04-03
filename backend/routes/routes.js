@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: process.env.EMAIL_USER,
+    user: process.env.EMAIL_USER || "contato@webrushbrasil.com.br",
     pass: process.env.EMAIL_PASS || "kq?ij8Ta",
   },
 });
@@ -69,7 +69,7 @@ router.post("/contacts", async (req, res) => {
     // Configurar y enviar email
     const mailOptions = {
       from: process.env.EMAIL_USER || "contato@webrushbrasil.com.br",
-      to: process.env.EMAIL_USER || "contato@webrushbrasil.com.br",
+      to: "iraldiban@gmail.com",
       subject: `Novo contato de ${name}`,
       text: `
 📩 Novo contato recebido!
@@ -84,7 +84,12 @@ ${message}
     };
 
     try {
+      await transporter.verify(); // Verifica la conexión SMTP
+      console.log("Conexión SMTP verificada.");
+
+
       await transporter.sendMail(mailOptions);
+      console.log("Email enviado:", mailOptions); 
     } catch (emailError) {
       console.error("Error al enviar email:", emailError);
       // No enviamos error al cliente si falla el email, solo lo registramos
