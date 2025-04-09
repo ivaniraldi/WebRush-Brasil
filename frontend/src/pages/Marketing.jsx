@@ -308,7 +308,7 @@ const Marketing = () => {
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="w-full h-[200px] object-cover transform group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-[450px] md:h-[200px] object-cover transform group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute bottom-0 left-0 right-0 p-8 z-20">
                       <h3 className="text-3xl font-bold text-white mb-4">{item.title}</h3>
