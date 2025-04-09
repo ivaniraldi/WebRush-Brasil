@@ -196,7 +196,7 @@ const WebServices = () => {
       description: "Blog moderno e responsivo com design minimalista e otimizado para SEO",
       image: "https://i.imgur.com/2VYp3iA.png",
       project_url: "https://urbanblog.onrender.com/",
-      technologies: ["React", "TailwindCSS", "Node.js"]
+      technologies: ["TailwindCSS", "FramerMotion","Next.Js",]
     },
     {
       id: 2,
@@ -204,7 +204,7 @@ const WebServices = () => {
       description: "Landing page moderna com animações e design atraente",
       image: "https://i.imgur.com/wQpr0ve.png",
       project_url: "https://landingpage-portfolio.onrender.com/",
-      technologies: ["React", "TailwindCSS", "Framer Motion"]
+      technologies: ["Next.Js", "TailwindCSS", "EmailJS"]
     },
     {
       id: 3,
@@ -212,7 +212,7 @@ const WebServices = () => {
       description: "Loja online completa com carrinho de compras e sistema de pagamentos",
       image: "https://i.imgur.com/vWJ3EfK.png",
       project_url: "https://ecommerce-portfolio-8cbo.onrender.com/",
-      technologies: ["React", "Node.js", "MongoDB"]
+      technologies: ["MercadoPago", "React", "PostgreSQL", "Node.js"]
     },
     {
       id: 4,
@@ -220,7 +220,7 @@ const WebServices = () => {
       description: "Portfólio pessoal com design moderno e animações suaves",
       image: "https://i.imgur.com/U0z8kZq.png",
       project_url: "https://portfolio-portfolio-cfrk.onrender.com/",
-      technologies: ["React", "TailwindCSS", "Framer Motion"]
+      technologies: ["Next.Js", "TailwindCSS", "FramerMotion"]
     }
   ];
   
@@ -720,7 +720,7 @@ const WebServices = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="group relative overflow-hidden rounded-xl bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 hover:border-neon-green/50 transition-all duration-300 transform hover:scale-105"
               >
-                <div className="aspect-video relative overflow-hidden">
+                <div className="aspect-auto relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/50 to-transparent z-10"></div>
                   <img
                     src={project.image}
@@ -728,10 +728,10 @@ const WebServices = () => {
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                 </div>
-                <div className="p-4">
-                  <div className="flex items-center gap-2 mb-2">
+                <div className="p-4 flex flex-col justify-between h-56">
+                  <div className="flex items-center flex-wrap gap-2 mb-2">
                     {project.technologies.map((tech, i) => (
-                      <span key={i} className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-white/10 text-white border border-white/20">
+                      <span key={i} className="inline-flex  items-center px-2 py-1 rounded-full text-xs font-medium bg-white/10 text-white border border-white/20">
                         {tech}
                       </span>
                     ))}

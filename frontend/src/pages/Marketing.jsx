@@ -4,6 +4,21 @@ import { Helmet } from 'react-helmet';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { FaChartLine, FaUsers, FaSearch, FaRocket, FaHandshake, FaBullseye } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import mkt_img_1 from '../assets/mkt/mkt_1.jpg';
+import mkt_img_2 from '../assets/mkt/mkt_2.jpg';
+import mkt_img_3 from '../assets/mkt/mkt_3.jpg';
+import mkt_vid_1 from '../assets/mkt/mkt_vid_1.mp4';
+import mkt_vid_2 from '../assets/mkt/mkt_vid_2.mp4';
+import mkt_vid_3 from '../assets/mkt/mkt_vid_3.mp4';
+import mkt_vid_4 from '../assets/mkt/mkt_vid_4.mp4';
+import mkt_vid_5 from '../assets/mkt/mkt_vid_5.mp4';
+import mkt_vid_6 from '../assets/mkt/mkt_vid_6.mp4';
+import mkt_vid_7 from '../assets/mkt/mkt_vid_7.mp4';
+import mkt_vid_8 from '../assets/mkt/mkt_vid_8.mp4';
+
 
 const Marketing = () => {
   const services = [
@@ -102,6 +117,73 @@ const Marketing = () => {
     }
   ];
 
+  const carouselItems = [
+    {
+      image: "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80",
+      title: "Gestão de Mídias Sociais",
+      description: "Estratégias personalizadas para aumentar sua presença nas redes sociais e engajamento com seu público.",
+      prints: [mkt_img_1, mkt_img_2, mkt_img_3]
+    },
+    {
+      image: "https://images.unsplash.com/photo-1498049794561-7780e7231661?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80",
+      title: "Publicidade Digital",
+      description: "Campanhas publicitárias eficazes no Google Ads e redes sociais para maximizar seu ROI.",
+      videos: [mkt_vid_1, mkt_vid_2, mkt_vid_3, mkt_vid_4, mkt_vid_5, mkt_vid_6, mkt_vid_7, mkt_vid_8]
+    },
+    {
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80",
+      title: "SEO e Posicionamento",
+      description: "Otimização do seu site para melhorar o posicionamento nos mecanismos de busca."
+    }
+  ];
+
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    pauseOnHover: true,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: false
+        }
+      }
+    ]
+  };
+
+  const printsSliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    pauseOnHover: true,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          arrows: false
+        }
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <Helmet>
@@ -199,6 +281,95 @@ const Marketing = () => {
         </div>
       </section>
 
+      {/* Carrusel Principal Section */}
+      <section className="py-16 bg-gray-800/30 relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
+              NOSSOS CASOS DE SUCESSO
+            </h2>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              Descubra como ajudamos empresas como a sua a crescer no mundo digital
+            </p>
+          </motion.div>
+
+          <div className="max-w-6xl mx-auto">
+            <Slider {...sliderSettings}>
+              {carouselItems.map((item, index) => (
+                <div key={index} className="px-4">
+                  <div className="relative rounded-xl overflow-hidden group">
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 to-transparent z-10"></div>
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-[200px] object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 p-8 z-20">
+                      <h3 className="text-3xl font-bold text-white mb-4">{item.title}</h3>
+                      <p className="text-gray-300 text-lg">{item.description}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </Slider>
+          </div>
+        </div>
+      </section>
+
+      {/* Carrusel de Prints e Vídeos Section */}
+      <section className="py-16 bg-gray-900/50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <Slider {...printsSliderSettings}>
+              {/* Prints */}
+              {carouselItems[0].prints.map((print, index) => (
+                <div key={`print-${index}`} className="px-4">
+                  <div className="relative rounded-xl overflow-hidden group">
+                    <img
+                      src={print}
+                      alt={`Print ${index + 1}`}
+                      className="w-full object-cover rounded-xl transform group-hover:scale-145 transition-transform duration-500"
+                    />
+                  </div>
+                </div>
+              ))}
+              
+              {/* Vídeos */}
+              {carouselItems[1].videos.map((video, index) => (
+                <div key={`video-${index}`} className="px-4">
+                  <div className="relative rounded-xl overflow-hidden group">
+                    <video
+                      className="w-full object-cover rounded-xl transform  transition-transform duration-500"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                    >
+                      <source src={video} type="video/mp4" />
+                      Seu navegador não suporta o elemento de vídeo.
+                    </video>
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="bg-black/50 rounded-full p-4">
+                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </Slider>
+          </div>
+        </div>
+      </section>
+
       {/* Differentials Section */}
       <section className="py-20 bg-gray-800/30 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900/50 via-gray-800/30 to-gray-900/50"></div>
@@ -260,7 +431,7 @@ const Marketing = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Basic Plan */}
-            <motion.div 
+            <motion.div
               className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 hover:border-neon-green/50 transition-all duration-300 transform hover:scale-105"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -313,7 +484,7 @@ const Marketing = () => {
             </motion.div>
 
             {/* Professional Plan */}
-            <motion.div 
+            <motion.div
               className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border-2 border-neon-green/50 hover:border-neon-green transition-all duration-300 transform hover:scale-105"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -381,7 +552,7 @@ const Marketing = () => {
             </motion.div>
 
             {/* Premium Plan */}
-            <motion.div 
+            <motion.div
               className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 hover:border-neon-green/50 transition-all duration-300 transform hover:scale-105"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -492,7 +663,7 @@ const Marketing = () => {
         {/* Efecto de fondo */}
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900/50 via-gray-800/30 to-gray-900/50"></div>
         <div className="absolute inset-0 bg-[url('https://source.unsplash.com/random/1920x1080/?marketing')] bg-cover bg-center opacity-10"></div>
-        
+
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
