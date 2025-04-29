@@ -1,0 +1,313 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #a855f7;
+  --secondary: #2563eb;
+  --accent: #9333ea;
+  --background-light: #0f172a;
+  --background-dark: #0f172a;
+  --text-light: #f8fafc;
+  --text-dark: #f8fafc;
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  max-width: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scrollbar-width: none; /* Para Firefox */
+}
+
+/* Ocultar scrollbars pero mantener funcionalidad */
+body::-webkit-scrollbar,
+.overflow-y-auto::-webkit-scrollbar,
+.overflow-y-scroll::-webkit-scrollbar,
+div::-webkit-scrollbar {
+  width: 0 !important;
+  display: none !important;
+}
+
+/* Utilidades para elementos con scroll */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: var(--font-poppins), sans-serif;
+  position: relative;
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Asegurar que el header no cause scroll horizontal */
+header {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Asegurar que todos los contenedores principales no causen scroll horizontal */
+.container,
+section,
+main,
+div[class*="container"],
+div[class*="max-w-"] {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Asegurar que las imágenes no causen scroll horizontal */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.font-heading {
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.font-body {
+  font-family: var(--font-poppins), sans-serif;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #a855f7, #2563eb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-bg {
+  background: linear-gradient(90deg, #a855f7, #2563eb);
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
+  padding: 2px;
+  background: linear-gradient(90deg, #a855f7, #2563eb);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-10px);
+}
+
+/* Dark mode styles */
+.dark .card-bg {
+  @apply bg-gray-900;
+}
+
+.light .card-bg {
+  @apply bg-gray-100;
+}
+
+.dark .section-bg {
+  @apply bg-gray-900;
+}
+
+.light .section-bg {
+  @apply bg-gray-100;
+}
+
+/* Link hover effect */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background: linear-gradient(90deg, #a855f7, #2563eb);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Page transition overlay */
+.page-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(168, 85, 247, 0.1),
+    rgba(37, 99, 235, 0.1)
+  );
+  backdrop-filter: blur(5px);
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.page-transition-overlay.active {
+  opacity: 1;
+}
+
+/* Parallax effects */
+.parallax-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.parallax-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+/* Video section */
+.video-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.video-container::after {
+  content: "";
+  display: block;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Logo marquee */
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: marquee 30s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Custom scrollbar - Making it invisible but keeping functionality */
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .parallax-bg {
+    height: 110%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .marquee-content,
+  .parallax-bg {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
