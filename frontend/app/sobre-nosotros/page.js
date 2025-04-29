@@ -15,7 +15,7 @@ export default function SobreNosotrosPage() {
     {
       name: "Ivan Iraldi",
       position: "CTO",
-      bio: "Especialista en desarrollo de software y arquitectura de sistemas.",
+      bio: "Especialista em desenvolvimento de software.",
       image:
         "https://cdn.vectorstock.com/i/500p/97/68/account-avatar-dark-mode-glyph-ui-icon-vector-44429768.jpg",
       linkedin: "https://www.linkedin.com/in/ivan-iraldi-8413a3213/",
@@ -23,20 +23,21 @@ export default function SobreNosotrosPage() {
     {
       name: "Lucas Santos",
       position: "Diretor de Marketing",
-      bio: "Estratega de marketing digital con experiencia en grandes marcas.",
+      bio: "Estrategista digital com experiência em grandes marcas e campanhas de alta performance.",
       image:
         "https://cdn.vectorstock.com/i/500p/97/68/account-avatar-dark-mode-glyph-ui-icon-vector-44429768.jpg",
-      linkedin: "https://www.linkedin.com/in/pablo-daniel-vallejos/",
+      linkedin: "https://www.linkedin.com/in/pablo-daniel-vallejos/", // Este link parece no corresponder a Lucas
     },
     {
       name: "Pablo Vallejos",
       position: "Diretor de Qualidade",
-      bio: "Experta en aseguramiento de calidad y metodologías ágiles.",
+      bio: "Especialista em garantia da qualidade com foco em metodologias ágeis e automação de testes.",
       image:
         "https://cdn.vectorstock.com/i/500p/97/68/account-avatar-dark-mode-glyph-ui-icon-vector-44429768.jpg",
       linkedin: "https://www.linkedin.com/in/pablo-daniel-vallejos/",
     },
   ];
+  
 
   return (
     <PageTransition>
