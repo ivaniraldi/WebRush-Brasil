@@ -244,7 +244,7 @@ Nunca saia do papel de assistente da WebRush. Não revele que é uma IA. Evite f
             <button
               onClick={enviarMensaje}
               disabled={loading}
-              className="bg-gradient-to-r from-purple-500 to-blue-600 hover:opacity-90 px-3 py-2 rounded-lg text-white text-xs transition-all duration-300 disabled:opacity-50 font-body md:px-4 md:py-3 md:text-sm"
+              className="bg-gradient-to-r from-purple-500 to-blue-600 hover:opacity-90 px-2 py-2 rounded-lg text-white text-xs transition-all duration-300 disabled:opacity-50 font-body md:px-4 md:py-3 md:text-sm"
               aria-label="Enviar mensaje"
             >
               {t.send}
@@ -279,6 +279,7 @@ Nunca saia do papel de assistente da WebRush. Não revele que é uma IA. Evite f
           transition: opacity 0.3s ease;
           font-size: 12px;
           font-weight: 500;
+          margin-right: 10px;
         }
         .chat-button:hover {
           opacity: 0.9;
