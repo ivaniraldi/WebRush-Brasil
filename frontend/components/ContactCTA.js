@@ -34,7 +34,7 @@ export default function ContactCTA() {
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">{t.contactCTA.title}</h2>
           <p className="text-lg text-gray-300 mb-8">{t.contactCTA.description}</p>
           <Link
-            href="/contato"
+            href="/contacto"
             className="px-8 py-3 rounded-md bg-gradient-to-r from-[#a855f7] to-[#2563eb] text-white font-medium hover:opacity-90 transition-opacity inline-flex items-center"
           >
             {t.contactCTA.button}
