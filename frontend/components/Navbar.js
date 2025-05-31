@@ -118,11 +118,12 @@ export default function Navbar() {
               <Image
                 src="/images/logo.webp"
                 alt="WebRush Brasil Logo"
-                width={120}
+                width={140}
                 height={48}
                 priority
                 className="h-7 my-3 md:my-0 md:h-12 invert"
                 sizes="(max-width: 768px) 28px, 48px"
+                
               />
             </motion.div>
           </Link>
