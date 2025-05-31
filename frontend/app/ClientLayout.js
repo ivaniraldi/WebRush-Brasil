@@ -19,6 +19,8 @@ export default function ClientLayout({ children }) {
 
   return (
     <LanguageProvider>
+
+
       <ThemeProvider>
         <Navbar />
         <main className="flex-grow">
