@@ -1,3 +1,5 @@
+import TerserPlugin from 'terser-webpack-plugin';
+
 let userConfig = undefined
 
 /** @type {import('next').NextConfig} */
@@ -17,6 +19,42 @@ const nextConfig = {
     parallelServerCompiles: true,
   },
   output: 'export',
+  webpack: (config, { dev, isServer }) => {
+    // Optimización de JavaScript
+    config.optimization = {
+      ...config.optimization,
+      moduleIds: 'deterministic',
+      splitChunks: {
+        chunks: 'all',
+        minSize: 20000,
+        maxSize: 244000,
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendor',
+            chunks: 'all',
+          },
+        },
+      },
+    };
+
+    // Optimización de producción
+    if (!dev) {
+      config.optimization.minimize = true;
+      config.optimization.minimizer = [
+        ...config.optimization.minimizer,
+        new TerserPlugin({
+          terserOptions: {
+            compress: {
+              drop_console: true,
+            },
+          },
+        }),
+      ];
+    }
+
+    return config;
+  }
 }
 
 if (userConfig) {

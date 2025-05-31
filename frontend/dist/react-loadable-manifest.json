@@ -1,0 +1,37 @@
+{
+  "node_modules\\next\\dist\\client\\components\\react-dev-overlay\\utils\\use-websocket.js -> @vercel/turbopack-ecmascript-runtime/browser/dev/hmr-client/hmr-client.ts": {
+    "id": "node_modules\\next\\dist\\client\\components\\react-dev-overlay\\utils\\use-websocket.js -> @vercel/turbopack-ecmascript-runtime/browser/dev/hmr-client/hmr-client.ts",
+    "files": [
+      "static/chunks/vendor-node_modules_framer-motion_dist_es_a.js",
+      "static/chunks/vendor-node_modules_framer-motion_dist_es_m.js",
+      "static/chunks/vendor-node_modules_f.js",
+      "static/chunks/vendor-node_modules_motion-d.js",
+      "static/chunks/vendor-node_modules_next_dist_a.js",
+      "static/chunks/vendor-node_modules_next_dist_client_a.js",
+      "static/chunks/vendor-node_modules_next_dist_client_components_m.js",
+      "static/chunks/vendor-node_modules_next_dist_client_components_n.js",
+      "static/chunks/vendor-node_modules_next_dist_client_components_react-dev-overlay_ui_components_ca.js",
+      "static/chunks/vendor-node_modules_next_dist_client_components_react-dev-overlay_ui_components_dialog_d.js",
+      "static/chunks/vendor-node_modules_next_dist_client_components_react-dev-overlay_ui_components_errors_c.js",
+      "static/chunks/vendor-node_modules_next_dist_client_components_react-dev-overlay_ui_components_errors_d.js",
+      "static/chunks/vendor-node_modules_next_dist_client_components_react-dev-overlay_ui_components_h.js",
+      "static/chunks/vendor-node_modules_next_dist_client_components_react-dev-overlay_ui_components_t.js",
+      "static/chunks/vendor-node_modules_next_dist_client_components_react-dev-overlay_ui_container_b.js",
+      "static/chunks/vendor-node_modules_next_dist_client_components_react-dev-overlay_ui_d.js",
+      "static/chunks/vendor-node_modules_next_dist_client_components_react-dev-overlay_ui_s.js",
+      "static/chunks/vendor-node_modules_next_dist_client_components_react-dev-overlay_utils_c.js",
+      "static/chunks/vendor-node_modules_next_dist_client_components_redirect-.js",
+      "static/chunks/vendor-node_modules_next_dist_client_components_re.js",
+      "static/chunks/vendor-node_modules_next_dist_client_components_r.js",
+      "static/chunks/vendor-node_modules_next_dist_client_components_un.js",
+      "static/chunks/vendor-node_modules_next_dist_client_d.js",
+      "static/chunks/vendor-node_modules_next_dist_client_i.js",
+      "static/chunks/vendor-node_modules_next_dist_client_r.js",
+      "static/chunks/vendor-node_modules_next_dist_compiled_a.js",
+      "static/chunks/vendor-node_modules_next_dist_compiled_react-dom_cjs_react-dom-client_development_js-3139057c.js",
+      "static/chunks/vendor-node_modules_next_dist_c.js",
+      "static/chunks/vendor-node_modules_next_dist_l.js",
+      "static/chunks/vendor-node_modules_n.js"
+    ]
+  }
+}

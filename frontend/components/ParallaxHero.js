@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
+import Image from "next/image"
 
 export default function ParallaxHero({
   backgroundImage,
@@ -25,15 +26,22 @@ export default function ParallaxHero({
   return (
     <div ref={ref} className={`relative overflow-hidden flex items-center justify-center parallax-container`} style={{ height }}>
       <motion.div className="absolute inset-0 w-full h-full" style={{ y, scale }}>
-        {/* Imagen de fondo */}
-        <div
-          className="absolute inset-0 z-10"
-          style={{
-            backgroundImage: `url('${backgroundImage}')`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        ></div>
+        {/* Imagen de fondo optimizada */}
+        <div className="absolute inset-0 z-10">
+          <Image
+            src={backgroundImage}
+            alt="Hero background"
+            fill
+            priority
+            quality={85}
+            sizes="100vw"
+            className="object-cover"
+            style={{
+              objectFit: 'cover',
+              objectPosition: 'center'
+            }}
+          />
+        </div>
         {/* Capa violeta transparente */}
         <div className="absolute inset-0 bg-gray-900/60 z-20"></div>
       </motion.div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
@@ -114,10 +115,14 @@ export default function Navbar() {
               transition={{ duration: 0.5 }}
               className="relative z-[1010]"
             >
-              <img
+              <Image
                 src="/images/logo.webp"
                 alt="WebRush Brasil Logo"
-                className="h-7 my-3 md:my-0 md:h-12 invert" // Siempre invertido para tema oscuro
+                width={120}
+                height={48}
+                priority
+                className="h-7 my-3 md:my-0 md:h-12 invert"
+                sizes="(max-width: 768px) 28px, 48px"
               />
             </motion.div>
           </Link>

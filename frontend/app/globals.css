@@ -13,6 +13,28 @@
   scroll-behavior: smooth;
 }
 
+/* Optimización de fuentes */
+@font-face {
+  font-family: 'Montserrat';
+  font-display: swap;
+  font-weight: 700;
+  src: local('Montserrat Bold'), local('Montserrat-Bold');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-display: swap;
+  font-weight: 400;
+  src: local('Poppins Regular'), local('Poppins-Regular');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-display: swap;
+  font-weight: 600;
+  src: local('Poppins SemiBold'), local('Poppins-SemiBold');
+}
+
 html,
 body {
   max-width: 100%;
