@@ -1315,8 +1315,8 @@ const translations = {
     },
     hero: {
       transformamos: "YOUR SUCCESS",
-      cliques: "IS OUR",
-      emConexoes: "TECHNOLOGICAL MISSION",
+      cliques: "IS OUR TECHNOLOGICAL",
+      emConexoes: "MISSION",
       description:
         "We are a company specialized in software development, engineering, quality assurance, and strategic marketing, located in Santa Catarina, Brazil.",
       ctaButton: "Contact Us",
