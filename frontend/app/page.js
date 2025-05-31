@@ -41,11 +41,20 @@ export default function Home() {
             <span className="block text 3xl">{t.hero.emConexoes}</span>
           </motion.h1>
 
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-xs md:text-xl text-gray-200 mb-6 md:mb-8 max-w-2xl mx-auto font-body"
+          >
+            {t.hero.description}
+          </motion.p>
+
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-16"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Link
               href="/contacto"
