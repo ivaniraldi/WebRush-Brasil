@@ -95,6 +95,7 @@ export default function Navbar() {
     },
     // { href: "/casos-exito", label: t.nav.successCases },
     { href: "/sobre-nosotros", label: t.nav.aboutUs },
+    { href: "/blogs", label: "Blog" },
     { href: "/contacto", label: t.nav.contact },
   ];
 

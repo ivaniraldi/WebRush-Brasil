@@ -2,6 +2,7 @@
 import { Montserrat, Poppins } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import { viewport, defaultMetadata } from "./config/metadata";
 
 // Font configurations
 const montserrat = Montserrat({
@@ -17,34 +18,15 @@ const poppins = Poppins({
   display: "swap",
 });
 
-// Viewport configuration
-export const viewport = {
-  themeColor: "#a855f7",
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-  viewportFit: "cover",
-};
+// Export viewport configuration
+export { viewport };
 
 // Metadata for SEO
 export const metadata = {
+  ...defaultMetadata,
   title: "WebRush Brasil - Seu sucesso, nossa missão tecnológica",
   description:
     "Transforme seu negócio com as mais recentes soluções digitais. Desenvolvimento web, apps móveis e muito mais.",
-  manifest: "/manifest.json",
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "default",
-    title: "WebRush Brasil",
-  },
-  formatDetection: {
-    telephone: false,
-  },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/favicon.ico",
-  },
   openGraph: {
     title: "WebRush Brasil - Seu sucesso, nossa missão tecnológica",
     description:
@@ -68,19 +50,6 @@ export const metadata = {
     images: ["https://i.imgur.com/z2yA6hn.png"],
     creator: "@webrushbrasil",
   },
-  robots: {
-    index: true,
-    follow: true,
-    maxSnippets: -1,
-    maxImagePreview: "large",
-  },
-  alternates: {
-    canonical: "https://webrushbrasil.com.br",
-    languages: {
-      "pt-BR": "https://webrushbrasil.com.br",
-      en: "https://webrush.com.br/en",
-    },
-  },
   keywords: [
     "desenvolvimento web",
     "marketing digital",
@@ -93,8 +62,6 @@ export const metadata = {
     "custom software development",
     "qatest",
   ],
-  authors: [{ name: "WebRush Brasil" }],
-  themeColor: "#000000",
 };
 
 import ClientLayout from "./ClientLayout";
