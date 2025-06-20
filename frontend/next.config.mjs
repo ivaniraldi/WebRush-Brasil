@@ -7,7 +7,7 @@ const nextConfig = {
   trailingSlash: true,
   skipTrailingSlashRedirect: true,
   
-  // Configuración de imágenes
+  // Configuración de imágenes optimizada
   images: {
     unoptimized: true,
     domains: [
@@ -22,7 +22,7 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   
-  // Configuración de build
+  // Configuración de build optimizada
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -35,61 +35,76 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   
-  // Experimental features
+  // Configuraciones experimentales optimizadas
   experimental: {
-    webpackBuildWorker: true,
-    parallelServerBuildTraces: true,
-    parallelServerCompiles: true,
-    optimizePackageImports: ['framer-motion', 'lucide-react'],
+    optimizePackageImports: ['framer-motion', 'lucide-react', 'date-fns'],
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
   
-  // Configuración de compresión
+  // Configuración de compresión y seguridad
   compress: true,
   reactStrictMode: true,
   generateEtags: false,
   poweredByHeader: false,
   
-  // Webpack optimizations
+  // Webpack optimizations mejoradas
   webpack: (config, { dev, isServer }) => {
-    // Optimización de JavaScript
-    config.optimization = {
-      ...config.optimization,
-      moduleIds: 'deterministic',
-      splitChunks: {
-        chunks: 'all',
-        minSize: 20000,
-        maxSize: 244000,
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-            priority: 1,
-          },
-          framerMotion: {
-            test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
-            name: 'framer-motion',
-            chunks: 'async',
-            priority: 10,
-          },
-        },
-      },
-    };
-
-    // Optimización de producción
+    // Optimizaciones para producción
     if (!dev) {
-      config.optimization.minimize = true;
-      config.optimization.minimizer = [
-        ...config.optimization.minimizer,
-        new TerserPlugin({
-          terserOptions: {
-            compress: {
-              drop_console: true,
+      config.optimization = {
+        ...config.optimization,
+        moduleIds: 'deterministic',
+        splitChunks: {
+          chunks: 'all',
+          minSize: 10000,
+          maxSize: 200000,
+          cacheGroups: {
+            default: {
+              minChunks: 2,
+              priority: -20,
+              reuseExistingChunk: true,
+            },
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              priority: -10,
+              chunks: 'all',
+            },
+            react: {
+              test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+              name: 'react',
+              chunks: 'all',
+              priority: 20,
+            },
+            framerMotion: {
+              test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
+              name: 'framer-motion',
+              chunks: 'all',
+              priority: 15,
+            },
+            lucide: {
+              test: /[\\/]node_modules[\\/]lucide-react[\\/]/,
+              name: 'lucide',
+              chunks: 'all',
+              priority: 10,
             },
           },
-        }),
-      ];
+        },
+      };
     }
+
+    // Optimizaciones de módulos
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': require('path').resolve(__dirname),
+    };
 
     return config;
   }
