@@ -46,19 +46,10 @@ export const blogAPI = {
   // Obtener todos los slugs para generación estática
   getAllSlugs: async () => {
     try {
-      // Intentar primero obtener solo los slugs si la API lo soporta
       const response = await apiClient.get('/api/blogs?fields=slug');
       return response.data;
     } catch (error) {
-      try {
-        // Fallback: obtener todos los blogs y extraer solo los slugs
-        const response = await apiClient.get('/api/blogs?limit=100');
-        const blogs = response.data?.data || response.data || [];
-        return { data: blogs.map(blog => ({ slug: blog.slug })) };
-      } catch (fallbackError) {
-        console.error('Error al obtener los slugs:', fallbackError);
-        throw new Error('Error al obtener los slugs');
-      }
+      throw new Error('Error al obtener los slugs');
     }
   }
 };
