@@ -10,16 +10,6 @@ import { Calendar, User, ArrowLeft, Clock, Share2 } from "lucide-react";
 import { format } from "date-fns";
 import { blogAPI } from "../../config/api";
 
-// Función para generar parámetros estáticos - simplificada y optimizada
-export async function generateStaticParams() {
-  // Retornar array vacío para permitir generación dinámica completa
-  // Esto es la solución más óptima para APIs externas
-  return [];
-}
-
-// Permitir generación dinámica completa en runtime
-export const dynamicParams = true;
-
 export default function BlogDetailPage() {
   const params = useParams();
   const router = useRouter();
