@@ -9,6 +9,8 @@ import ReactMarkdown from "react-markdown";
 import { Calendar, User, ArrowLeft, Clock, Share2 } from "lucide-react";
 import { format } from "date-fns";
 import { blogAPI } from "../../config/api";
+import OptimizedImage from "@/components/OptimizedImage";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 
 
 
@@ -91,18 +93,7 @@ export default function BlogDetailPage() {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center">
-        <div className="text-center">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-            className="inline-block h-12 w-12 border-4 border-t-blue-500 border-gray-200 dark:border-gray-700 rounded-full mb-4"
-          />
-          <p className="text-gray-500 dark:text-gray-400 text-lg font-medium">Cargando blog...</p>
-        </div>
-      </div>
-    );
+    return <LoadingSkeleton variant="blogDetail" />;
   }
 
   if (error) {
@@ -328,11 +319,15 @@ export default function BlogDetailPage() {
               transition={{ duration: 1 }}
               className="relative overflow-hidden rounded-3xl"
             >
-              <img
+              <OptimizedImage
                 src={blog.cover_image || blog.image || "/images/placeholder.avif"}
                 alt={blog.title}
+                width={1200}
+                height={500}
                 className="w-full h-64 md:h-[500px] object-cover"
-                loading="eager"
+                priority={true}
+                quality={90}
+                sizes="100vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/30 to-transparent" />
               

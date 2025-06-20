@@ -71,35 +71,78 @@ export default function RootLayout({ children }) {
     <html lang="pt-BR" className="dark scroll-smooth">
       <head>
         <meta charSet="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-        <link rel="manifest" href="/manifest.json" />
-        <link
-          href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@700&display=swap"
-          rel="stylesheet"
-        />
+        
+        {/* Critical CSS Inline */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            :root{--bg-primary:#0f172a;--text-primary:#fff;--purple-500:#8b5cf6;--blue-500:#3b82f6}
+            *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+            html{scroll-behavior:smooth}
+            body{font-family:system-ui,-apple-system,sans-serif;background-color:var(--bg-primary);color:var(--text-primary);min-height:100vh;display:flex;flex-direction:column}
+            main{flex-grow:1}
+            .container{max-width:1200px;margin:0 auto;padding:0 1rem}
+            .spinner{border:2px solid rgba(139,92,246,.2);border-top:2px solid #8b5cf6;border-radius:50%;width:2rem;height:2rem;animation:spin 1s linear infinite}
+            @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+          `
+        }} />
+
+        {/* Critical Resource Hints */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://i.imgur.com" />
-        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="preconnect" href="https://api.webrushbrasil.com.br" />
+        <link rel="preconnect" href="https://kit.fontawesome.com" />
+        
+        {/* Critical Resources */}
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+        <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-        <script
-          src="https://kit.fontawesome.com/d71e0cdf3f.js"
-          crossOrigin="anonymous"
-          defer
+        
+        {/* Optimized Font Loading */}
+        <link
+          rel="preload"
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@700&display=swap"
+          as="style"
         />
+        <noscript>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@700&display=swap"
+            rel="stylesheet"
+          />
+        </noscript>
+        
+        {/* Font CSS cargada de forma asíncrona con Script */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              const link = document.createElement('link');
+              link.rel = 'stylesheet';
+              link.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@700&display=swap';
+              document.head.appendChild(link);
+            `,
+          }}
+        />
+        
+        {/* DNS Prefetch for External Resources */}
+        <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="//connect.facebook.net" />
+        <link rel="dns-prefetch" href="//i.imgur.com" />
+        <link rel="dns-prefetch" href="//images.unsplash.com" />
       </head>
       <body
         className={`${montserrat.variable} ${poppins.variable} font-sans min-h-screen flex flex-col bg-[#0f172a] text-white transition-colors duration-300`}
         suppressHydrationWarning
       >
-        {/* Google Tag Manager */}
+        {/* Optimized FontAwesome Loading */}
+        <Script
+          src="https://kit.fontawesome.com/d71e0cdf3f.js"
+          crossOrigin="anonymous"
+          strategy="lazyOnload"
+        />
+
+        {/* Google Tag Manager - Optimized */}
         <Script
           id="gtm"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -119,10 +162,10 @@ export default function RootLayout({ children }) {
           />
         </noscript>
 
-        {/* Facebook Pixel */}
+        {/* Facebook Pixel - Optimized */}
         <Script
           id="facebook-pixel"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               !(function(f,b,e,v,n,t,s)
@@ -150,15 +193,15 @@ export default function RootLayout({ children }) {
           />
         </noscript>
 
-        {/* Google Analytics */}
+        {/* Google Analytics - Optimized */}
         <Script
           id="google-analytics"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           src="https://www.googletagmanager.com/gtag/js?id=G-Y6672GD94C"
         />
         <Script
           id="google-analytics-init"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
