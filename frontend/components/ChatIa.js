@@ -5,7 +5,7 @@ const Chat = () => {
   const [input, setInput] = useState("");
   const [chat, setChat] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); 
   const [hasNewMessage, setHasNewMessage] = useState(false);
   const chatEndRef = useRef(null);
   const { language } = useLanguage();
