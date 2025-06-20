@@ -7,8 +7,6 @@ import { useTheme } from "next-themes";
 import Head from "next/head";
 import { ChevronLeft, ChevronRight, Calendar, User } from "lucide-react";
 import { blogAPI } from "../config/api";
-import OptimizedImage from "@/components/OptimizedImage";
-import LoadingSkeleton from "@/components/LoadingSkeleton";
 
 export default function BlogsListPage() {
   const { theme } = useTheme();
@@ -108,7 +106,16 @@ export default function BlogsListPage() {
       {/* Blogs List */}
       <section className="container mx-auto px-4 py-16">
         {loading ? (
-          <LoadingSkeleton variant="blog" />
+          <div className="flex justify-center items-center min-h-[400px]">
+            <div className="text-center">
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                className="inline-block h-12 w-12 border-4 border-t-blue-500 border-gray-200 dark:border-gray-700 rounded-full mb-4"
+              />
+              <p className="text-gray-500 dark:text-gray-400 text-lg font-medium">Cargando blogs...</p>
+            </div>
+          </div>
         ) : error ? (
           <div className="flex justify-center items-center min-h-[400px]">
             <div className="text-center">
@@ -143,15 +150,11 @@ export default function BlogsListPage() {
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 via-transparent to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
                   <div className="relative overflow-hidden">
-                    <OptimizedImage
+                    <img
                       src={blog.cover_image || blog.image || "/images/placeholder.avif"}
                       alt={blog.title}
-                      width={400}
-                      height={224}
                       className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-700"
-                      priority={index < 3} // Prioridad para las primeras 3 imágenes
-                      quality={85}
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
                     
