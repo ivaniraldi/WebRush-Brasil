@@ -2,7 +2,132 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Animaciones CSS optimizadas para rendimiento */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Clases de utilidad para animaciones */
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-fade-in-delay-1 {
+  animation: fadeIn 0.8s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-delay-2 {
+  animation: fadeIn 0.8s ease-out 0.4s forwards;
+  opacity: 0;
+}
+
+.animate-slide-in-left {
+  animation: slideInFromLeft 0.6s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInFromRight 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.5s ease-out forwards;
+}
+
+/* Optimización para elementos que se cargan después */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mejoras de rendimiento */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Preloading optimizations */
+.preload-reduce-motion {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Respeta las preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-fade-in-delay-1,
+  .animate-fade-in-delay-2,
+  .animate-slide-in-left,
+  .animate-slide-in-right,
+  .animate-scale-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .animate-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Variables CSS existentes */
 :root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
   --primary: #a855f7;
   --secondary: #2563eb;
   --accent: #9333ea;
@@ -13,37 +138,72 @@
   scroll-behavior: smooth;
 }
 
-/* Optimización de fuentes */
-@font-face {
-  font-family: 'Montserrat';
-  font-display: swap;
-  font-weight: 700;
-  src: local('Montserrat Bold'), local('Montserrat-Bold');
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
 }
 
-@font-face {
-  font-family: 'Poppins';
-  font-display: swap;
-  font-weight: 400;
-  src: local('Poppins Regular'), local('Poppins-Regular');
-}
-
-@font-face {
-  font-family: 'Poppins';
-  font-display: swap;
-  font-weight: 600;
-  src: local('Poppins SemiBold'), local('Poppins-SemiBold');
-}
-
-html,
+/* Estilos base */
 body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
   max-width: 100%;
   width: 100%;
   overflow-x: hidden;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  scrollbar-width: none; /* Para Firefox */
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: var(--font-poppins), sans-serif;
+  position: relative;
+}
+
+/* Scrollbar personalizada para desktop */
+@media (min-width: 768px) {
+  body::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  body::-webkit-scrollbar-track {
+    background: #1f2937;
+    border-radius: 4px;
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #a855f7, #2563eb);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+
+  body::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #9333ea, #1d4ed8);
+  }
+
+  /* Para Firefox */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: #a855f7 #1f2937;
+  }
+}
+
+/* Mantener scrollbar oculta en mobile para mejor UX */
+@media (max-width: 767px) {
+  body {
+    scrollbar-width: none; /* Para Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+
+  body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
 }
 
 /* Ocultar scrollbars pero mantener funcionalidad */
@@ -67,18 +227,6 @@ div::-webkit-scrollbar {
 
 html {
   scroll-behavior: smooth;
-}
-
-body {
-  transition: background-color 0.3s ease, color 0.3s ease;
-  font-family: var(--font-poppins), sans-serif;
-  position: relative;
-  -ms-overflow-style: none; /* IE/Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-body::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
 }
 
 /* Asegurar que el header no cause scroll horizontal */
@@ -123,9 +271,10 @@ h6 {
 }
 
 .gradient-text {
-  background: linear-gradient(90deg, #a855f7, #2563eb);
+  background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .gradient-bg {
@@ -330,6 +479,96 @@ h6 {
   }
 
   html {
+    scroll-behavior: auto;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Optimización de fuentes */
+@font-face {
+  font-family: 'Montserrat';
+  font-display: swap;
+  font-weight: 700;
+  src: local('Montserrat Bold'), local('Montserrat-Bold');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-display: swap;
+  font-weight: 400;
+  src: local('Poppins Regular'), local('Poppins-Regular');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-display: swap;
+  font-weight: 600;
+  src: local('Poppins SemiBold'), local('Poppins-SemiBold');
+}
+
+/* Optimización para elementos que se cargan después */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Loading states optimizations */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.dark .skeleton {
+  background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
+  background-size: 200% 100%;
+}
+
+/* Critical CSS inlining helpers */
+.above-fold {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+.below-fold {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 300px;
+}
+
+/* Optimización de rendering */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Scroll optimizations */
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-smooth {
     scroll-behavior: auto;
   }
 }

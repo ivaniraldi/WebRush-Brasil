@@ -1,8 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 export default function Services({ t }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef(null);
+
   const services = [
     {
       title: t.services.items[0].title,
@@ -24,37 +27,43 @@ export default function Services({ t }) {
     },
   ];
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15 },
-    },
-  };
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
 
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeInOut" } },
-  };
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, []);
 
   return (
-    <motion.div
-      variants={container}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true }}
-      className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" 
+    <div
+      ref={containerRef}
+      className={`grid md:grid-cols-2 lg:grid-cols-3 gap-6 transition-opacity duration-1000 ${
+        isVisible ? 'opacity-100' : 'opacity-0'
+      }`}
     >
       {services.map((service, index) => (
-        <motion.div
+        <div
           key={index}
-          variants={item}
-          whileHover={{
-            y: -5,
-            boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)",
-            transition: { duration: 0.3 },
+          className={`group relative bg-gray-900/10 backdrop-blur-lg rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-on-scroll ${
+            isVisible ? 'in-view' : ''
+          }`}
+          style={{
+            animationDelay: `${index * 0.15}s`
           }}
-          className="group relative bg-gray-900/10 backdrop-blur-lg rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300"
         >
           <div
             className={`absolute inset-0 bg-gradient-to-r ${service.color} opacity-0 group-hover:opacity-10 rounded-xl transition-opacity duration-300 -z-10`}
@@ -70,8 +79,8 @@ export default function Services({ t }) {
           <p className="mt-2 text-sm text-gray-400 font-body leading-relaxed">
             {service.description}
           </p>
-        </motion.div>
+        </div>
       ))}
-    </motion.div>
+    </div>
   );
 }

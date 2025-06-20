@@ -5,8 +5,8 @@ import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { LanguageProvider } from "@/context/LanguageContext"
 import { ThemeProvider } from "@/context/ThemeContext"
-import { AnimatePresence } from "framer-motion"
 import CustomCursor from "@/components/CustomCursor"
+import Preloader from "@/components/Preloader"
 import { useEffect } from "react"
 import { register } from "./registerSW"
 import ChatIa from "@/components/ChatIa"
@@ -19,12 +19,11 @@ export default function ClientLayout({ children }) {
 
   return (
     <LanguageProvider>
-
-
       <ThemeProvider>
+        <Preloader />
         <Navbar />
         <main className="flex-grow">
-          <AnimatePresence mode="wait">{children}</AnimatePresence>
+          {children}
         </main>
         <Footer />
         <CustomCursor />

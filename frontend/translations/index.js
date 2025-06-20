@@ -369,8 +369,7 @@ const translations = {
             "Foco em entregar resultados mensuráveis que impactam positivamente o negócio de nossos clientes.",
         },
       ],
-      team: "Nossa Equipe",
-      teamDescription: "Conheça os profissionais por trás da WebRush Brasil.",
+
     },
     successCases: {
       title: "Casos de Sucesso",
@@ -1020,8 +1019,7 @@ const translations = {
             "Enfoque en entregar resultados medibles que impactan positivamente el negocio de nuestros clientes.",
         },
       ],
-      team: "Nuestro Equipo",
-      teamDescription: "Conoce a los profesionales detrás de WebRush Brasil.",
+
     },
     successCases: {
       title: "Casos de Éxito",
@@ -1668,8 +1666,7 @@ const translations = {
             "Focus on delivering measurable results that positively impact our clients' business.",
         },
       ],
-      team: "Our Team",
-      teamDescription: "Meet the professionals behind WebRush Brasil.",
+
     },
     successCases: {
       title: "Success Cases",

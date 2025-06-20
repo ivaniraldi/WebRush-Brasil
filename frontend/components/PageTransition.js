@@ -1,6 +1,5 @@
 "use client"
 
-import { motion } from "framer-motion"
 import { usePathname } from "next/navigation"
 import { useEffect } from "react"
 
@@ -8,6 +7,24 @@ export default function PageTransition({ children }) {
   const pathname = usePathname()
 
   // Scroll to top on page change
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+
+  return (
+    <div className="page-transition">
+      {children}
+    </div>
+  )
+}
+
+// Versión con Framer Motion para páginas secundarias (comentada para uso opcional)
+/*
+import { motion } from "framer-motion"
+
+export function AnimatedPageTransition({ children }) {
+  const pathname = usePathname()
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])
@@ -27,3 +44,4 @@ export default function PageTransition({ children }) {
     </motion.div>
   )
 }
+*/
