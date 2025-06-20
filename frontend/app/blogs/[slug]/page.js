@@ -9,6 +9,8 @@ import ReactMarkdown from "react-markdown";
 import { Calendar, User, ArrowLeft, Clock, Share2 } from "lucide-react";
 import { format } from "date-fns";
 import { blogAPI } from "../../config/api";
+import { useLanguage } from "@/context/LanguageContext";
+import translations from "@/translations";
 
 
 
@@ -17,6 +19,8 @@ export default function BlogDetailPage() {
   const router = useRouter();
   const slug = params.slug;
   const { theme } = useTheme();
+  const { language } = useLanguage();
+  const t = translations[language];
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,7 +33,7 @@ export default function BlogDetailPage() {
           const data = await blogAPI.getBlogBySlug(slug);
           setBlog(data.data || data);
         } catch (err) {
-          setError("No se pudo cargar el blog");
+          setError(t.blog?.error || "No se pudo cargar el blog");
           console.error("Blog fetch error:", err);
         } finally {
           setLoading(false);
@@ -99,7 +103,7 @@ export default function BlogDetailPage() {
             transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
             className="inline-block h-12 w-12 border-4 border-t-blue-500 border-gray-200 dark:border-gray-700 rounded-full mb-4"
           />
-          <p className="text-gray-500 dark:text-gray-400 text-lg font-medium">Cargando blog...</p>
+                        <p className="text-gray-500 dark:text-gray-400 text-lg font-medium">{t.blog?.loading || "Cargando blog..."}</p>
         </div>
       </div>
     );
@@ -116,13 +120,13 @@ export default function BlogDetailPage() {
                 onClick={() => router.push('/blogs')}
                 className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
               >
-                Volver a Blogs
+                {t.blog?.backToBlogs || "Volver a Blogs"}
               </button>
               <button 
                 onClick={() => window.location.reload()}
                 className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
               >
-                Intentar de nuevo
+                {t.blog?.tryAgain || "Intentar de nuevo"}
               </button>
             </div>
           </div>
@@ -136,12 +140,12 @@ export default function BlogDetailPage() {
       <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-8 max-w-md">
-            <p className="text-gray-500 dark:text-gray-400 text-lg font-medium mb-4">Blog no encontrado</p>
+            <p className="text-gray-500 dark:text-gray-400 text-lg font-medium mb-4">{t.blog?.articleNotFound || "Blog no encontrado"}</p>
             <button 
               onClick={() => router.push('/blogs')}
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
-              Volver a Blogs
+              {t.blog?.backToBlogs || "Volver a Blogs"}
             </button>
           </div>
         </div>
@@ -151,7 +155,22 @@ export default function BlogDetailPage() {
 
   const seoTitle = blog.seo_title || blog.title ? `${blog.title} | Blog | WebRush Brasil` : 'Blog | WebRush Brasil';
   const seoDescription = blog.seo_description || blog.summary || blog.description || 'Artículo del blog de WebRush Brasil';
-  const publishedDate = blog.createdAt ? format(new Date(blog.createdAt), "dd 'de' MMMM, yyyy", { locale: require('date-fns/locale/es') }) : "Fecha no disponible";
+  // Configuración de locale para date-fns
+  const getDateLocale = () => {
+    if (language === 'pt') return require('date-fns/locale/pt-BR');
+    if (language === 'en') return require('date-fns/locale/en-US');
+    return require('date-fns/locale/es');
+  };
+
+  const getDateFormat = () => {
+    if (language === 'pt') return "dd 'de' MMMM, yyyy";
+    if (language === 'en') return "MMMM dd, yyyy";
+    return "dd 'de' MMMM, yyyy";
+  };
+
+  const publishedDate = blog.createdAt 
+    ? format(new Date(blog.createdAt), getDateFormat(), { locale: getDateLocale() }) 
+    : (t.blog?.dateUnavailable || "Fecha no disponible");
   const readingTime = blog.content ? Math.ceil(blog.content.split(' ').length / 200) : 5; // Estimate reading time
 
   return (
@@ -219,7 +238,7 @@ export default function BlogDetailPage() {
             "articleSection": "Technology",
             "articleBody": blog.content?.substring(0, 500) + "...",
             ...(blog.tags && { "keywords": blog.tags.join(", ") }),
-            "inLanguage": "es-ES",
+            "inLanguage": language === 'pt' ? "pt-BR" : language === 'en' ? "en-US" : "es-ES",
             "isAccessibleForFree": true,
             "potentialAction": {
               "@type": "ReadAction",
@@ -273,7 +292,7 @@ export default function BlogDetailPage() {
               className="inline-flex items-center gap-2 text-gray-300 hover:text-white transition-all duration-300 bg-gray-800/50 px-4 py-2 rounded-lg hover:bg-gray-700/50 border border-gray-700/50 hover:border-purple-500/30"
             >
               <ArrowLeft className="w-5 h-5" />
-              <span className="font-medium">Volver al Blog</span>
+              <span className="font-medium">{t.blog?.backToBlog || "Volver al Blog"}</span>
             </motion.button>
             
             <div className="flex items-center gap-3">
@@ -284,7 +303,7 @@ export default function BlogDetailPage() {
                 className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:from-purple-500 hover:to-blue-500 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/25"
               >
                 <Share2 className="w-4 h-4" />
-                <span className="font-medium">Compartir</span>
+                <span className="font-medium">{t.blog?.share || "Compartir"}</span>
               </motion.button>
             </div>
           </div>
@@ -301,11 +320,11 @@ export default function BlogDetailPage() {
         <div className="container mx-auto">
           <nav className="flex items-center space-x-2 text-sm text-gray-400">
             <button onClick={() => router.push("/")} className="hover:text-purple-400 transition-colors">
-              Inicio
+              {t.blog?.home || "Inicio"}
             </button>
             <span>/</span>
             <button onClick={() => router.push("/blogs")} className="hover:text-purple-400 transition-colors">
-              Blog
+              {t.footer?.blog || "Blog"}
             </button>
             <span>/</span>
             <span className="text-white font-medium truncate max-w-md">{blog.title}</span>
@@ -337,9 +356,9 @@ export default function BlogDetailPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/30 to-transparent" />
               
               {/* Floating elements */}
-              <div className="absolute top-6 right-6 bg-gray-900/80 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium border border-gray-700/50">
-                {readingTime} min de lectura
-              </div>
+                               <div className="absolute top-6 right-6 bg-gray-900/80 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium border border-gray-700/50">
+                   {readingTime} {t.blog?.readingTime || "min"} {t.blog?.readingTimeLabel || "de lectura"}
+                 </div>
               
               {/* Content overlay */}
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
@@ -402,7 +421,7 @@ export default function BlogDetailPage() {
                   <User className="w-4 h-4 text-purple-400" aria-hidden="true" />
                 </div>
                 <div>
-                  <span className="text-xs text-gray-400 block">Autor</span>
+                                     <span className="text-xs text-gray-400 block">{t.blog?.author || "Autor"}</span>
                   <span className="font-medium text-white">
                     {typeof blog.author === 'object' ? blog.author.name || blog.author.email : blog.author}
                   </span>
@@ -414,7 +433,7 @@ export default function BlogDetailPage() {
                 <Calendar className="w-4 h-4 text-blue-400" aria-hidden="true" />
               </div>
               <div>
-                <span className="text-xs text-gray-400 block">Fecha</span>
+                                 <span className="text-xs text-gray-400 block">{t.blog?.date || "Fecha"}</span>
                 <span className="font-medium text-white">{publishedDate}</span>
               </div>
             </div>
@@ -423,8 +442,8 @@ export default function BlogDetailPage() {
                 <Clock className="w-4 h-4 text-indigo-400" aria-hidden="true" />
               </div>
               <div>
-                <span className="text-xs text-gray-400 block">Lectura</span>
-                <span className="font-medium text-white">{readingTime} min</span>
+                                 <span className="text-xs text-gray-400 block">{t.blog?.readingTimeLabel || "Lectura"}</span>
+                                 <span className="font-medium text-white">{readingTime} {t.blog?.readingTime || "min"}</span>
               </div>
             </div>
           </motion.div>
@@ -439,7 +458,7 @@ export default function BlogDetailPage() {
             >
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-1 h-6 bg-gradient-to-b from-purple-500 to-blue-500 rounded-full"></div>
-                <span className="text-sm font-semibold text-purple-400 uppercase tracking-wider">Resumen</span>
+                                 <span className="text-sm font-semibold text-purple-400 uppercase tracking-wider">{t.blog?.summary || "Resumen"}</span>
               </div>
               <p className="text-lg leading-relaxed text-gray-300 italic">
                 {blog.summary || blog.description}
@@ -563,7 +582,7 @@ export default function BlogDetailPage() {
                 ),
               }}
             >
-              {blog.content || 'Contenido no disponible'}
+              {blog.content || t.blog?.contentUnavailable || 'Contenido no disponible'}
             </ReactMarkdown>
           </motion.article>
 
@@ -584,19 +603,18 @@ export default function BlogDetailPage() {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 1.4 }}
                 className="text-3xl md:text-4xl font-bold mb-4 text-transparent bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text"
-              >
-                ¿Te gustó este artículo?
-              </motion.h3>
+                             >
+                 {t.blog?.likedArticle || "¿Te gustó este artículo?"}
+               </motion.h3>
               
               <motion.p 
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 1.5 }}
-                className="text-lg mb-8 text-gray-300 max-w-2xl mx-auto leading-relaxed"
-              >
-                Descubre más contenido sobre desarrollo web, tecnología y marketing digital. 
-                Únete a nuestra comunidad y mantente al día con las últimas tendencias.
-              </motion.p>
+                                 className="text-lg mb-8 text-gray-300 max-w-2xl mx-auto leading-relaxed"
+               >
+                 {t.blog?.discoverMore || "Descubre más contenido sobre desarrollo web, tecnología y marketing digital. Únete a nuestra comunidad y mantente al día con las últimas tendencias."}
+               </motion.p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <motion.button
@@ -608,7 +626,7 @@ export default function BlogDetailPage() {
                   onClick={() => router.push("/blogs")}
                   className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:from-purple-500 hover:to-blue-500 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/25 transform"
                 >
-                  Ver más artículos
+                                     {t.blog?.readMoreArticles || "Ver más artículos"}
                 </motion.button>
                 
                 <motion.button
@@ -620,7 +638,7 @@ export default function BlogDetailPage() {
                   onClick={() => router.push("/contacto")}
                   className="px-8 py-4 border-2 border-white/30 text-white rounded-xl font-semibold hover:bg-white/10 hover:border-white/50 backdrop-blur-sm transition-all duration-300"
                 >
-                  Contáctanos
+                                     {t.blog?.contactUs || "Contáctanos"}
                 </motion.button>
               </div>
               
@@ -631,7 +649,7 @@ export default function BlogDetailPage() {
                 transition={{ duration: 0.5, delay: 1.8 }}
                 className="mt-8 pt-6 border-t border-gray-700/50"
               >
-                <p className="text-sm text-gray-400 mb-3">Comparte este artículo con tu red</p>
+                                 <p className="text-sm text-gray-400 mb-3">{t.blog?.shareWithNetwork || "Comparte este artículo con tu red"}</p>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -639,7 +657,7 @@ export default function BlogDetailPage() {
                   className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors"
                 >
                   <Share2 className="w-4 h-4" />
-                  <span className="text-sm font-medium">Compartir artículo</span>
+                                     <span className="text-sm font-medium">{t.blog?.shareArticle || "Compartir artículo"}</span>
                 </motion.button>
               </motion.div>
             </div>

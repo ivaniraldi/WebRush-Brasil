@@ -7,9 +7,13 @@ import { useTheme } from "next-themes";
 import Head from "next/head";
 import { ChevronLeft, ChevronRight, Calendar, User } from "lucide-react";
 import { blogAPI } from "../config/api";
+import { useLanguage } from "@/context/LanguageContext";
+import translations from "@/translations";
 
 export default function BlogsListPage() {
   const { theme } = useTheme();
+  const { language } = useLanguage();
+  const t = translations[language];
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -40,8 +44,8 @@ export default function BlogsListPage() {
     }
   };
 
-  const seoTitle = "Blogs - Explora Nuestros Artículos | WebRush Brasil";
-  const seoDescription = "Descubre nuestra colección de blogs sobre desarrollo web, tecnología, marketing digital y más en WebRush Brasil.";
+  const seoTitle = `${t.blog?.title || "Blogs"} - WebRush Brasil`;
+  const seoDescription = t.blog?.subtitle || "Descubre nuestra colección de blogs sobre desarrollo web, tecnología, marketing digital y más en WebRush Brasil.";
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -95,10 +99,10 @@ export default function BlogsListPage() {
           className="relative text-center text-white z-10"
         >
           <h1 className="text-4xl md:text-6xl font-bold mb-4 font-heading">
-            Nuestros Blogs
+            {t.blog?.title || "Nuestros Blogs"}
           </h1>
           <p className="text-lg md:text-xl font-body text-gray-200 max-w-2xl mx-auto">
-            Explora historias y conocimientos sobre tecnología, desarrollo web y marketing digital
+            {t.blog?.subtitle || "Explora historias y conocimientos sobre tecnología, desarrollo web y marketing digital"}
           </p>
         </motion.div>
       </motion.section>
@@ -113,7 +117,7 @@ export default function BlogsListPage() {
                 transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                 className="inline-block h-12 w-12 border-4 border-t-blue-500 border-gray-200 dark:border-gray-700 rounded-full mb-4"
               />
-              <p className="text-gray-500 dark:text-gray-400 text-lg font-medium">Cargando blogs...</p>
+              <p className="text-gray-500 dark:text-gray-400 text-lg font-medium">{t.blog?.loading || "Cargando blogs..."}</p>
             </div>
           </div>
         ) : error ? (
@@ -125,7 +129,7 @@ export default function BlogsListPage() {
                   onClick={() => window.location.reload()} 
                   className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
                 >
-                  Intentar de nuevo
+                  {t.blog?.tryAgain || "Intentar de nuevo"}
                 </button>
               </div>
             </div>
@@ -159,9 +163,9 @@ export default function BlogsListPage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
                     
                     {/* Reading time badge */}
-                    <div className="absolute top-4 right-4 bg-gray-900/90 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium border border-gray-700">
-                      {blog.content ? Math.ceil(blog.content.split(' ').length / 200) : 5} min
-                    </div>
+                                         <div className="absolute top-4 right-4 bg-gray-900/90 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium border border-gray-700">
+                       {blog.content ? Math.ceil(blog.content.split(' ').length / 200) : 5} {t.blog?.readingTime || "min"}
+                     </div>
                   </div>
                   
                   <div className="relative p-6 space-y-4">
@@ -210,7 +214,9 @@ export default function BlogsListPage() {
                         {blog.createdAt && (
                           <div className="flex items-center gap-1">
                             <Calendar className="w-4 h-4 text-blue-400" />
-                            <span>{new Date(blog.createdAt).toLocaleDateString('es-ES')}</span>
+                            <span>{new Date(blog.createdAt).toLocaleDateString(
+                             language === 'pt' ? 'pt-BR' : language === 'en' ? 'en-US' : 'es-ES'
+                           )}</span>
                           </div>
                         )}
                       </div>
@@ -222,7 +228,7 @@ export default function BlogsListPage() {
                         href={`/blogs/${blog.slug}`}
                         className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-5 py-2.5 rounded-xl font-medium transition-all duration-300 hover:from-purple-500 hover:to-blue-500 hover:shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 group/btn"
                       >
-                        Leer Artículo
+                                                 {t.blog?.readMore || "Leer Artículo"}
                         <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
@@ -253,14 +259,14 @@ export default function BlogsListPage() {
                       ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed text-gray-400"
                       : "bg-blue-500 hover:bg-blue-600 text-white hover:scale-105"
                   } disabled:text-gray-500`}
-                  aria-label="Página anterior"
+                  aria-label={t.blog?.previousPage || "Página anterior"}
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
                 
                 <div className="flex items-center gap-2">
                   <span className="text-gray-700 dark:text-gray-300 font-medium">
-                    Página {currentPage} de {totalPages}
+                    {t.blog?.page || "Página"} {currentPage} {t.blog?.of || "de"} {totalPages}
                   </span>
                 </div>
                 
@@ -272,7 +278,7 @@ export default function BlogsListPage() {
                       ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed text-gray-400"
                       : "bg-blue-500 hover:bg-blue-600 text-white hover:scale-105"
                   } disabled:text-gray-500`}
-                  aria-label="Página siguiente"
+                  aria-label={t.blog?.nextPage || "Página siguiente"}
                 >
                   <ChevronRight className="w-5 h-5" />
                 </button>
@@ -283,12 +289,12 @@ export default function BlogsListPage() {
           <div className="flex justify-center items-center min-h-[400px]">
             <div className="text-center">
               <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-8">
-                <p className="text-gray-500 dark:text-gray-400 text-lg">No hay blogs disponibles</p>
+                                        <p className="text-gray-500 dark:text-gray-400 text-lg">{t.blog?.noBlogs || "No hay blogs disponibles"}</p>
                 <button 
                   onClick={() => window.location.reload()} 
                   className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
-                  Actualizar
+                  {t.blog?.refresh || "Actualizar"}
                 </button>
               </div>
             </div>
