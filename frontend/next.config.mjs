@@ -1,24 +1,55 @@
 import TerserPlugin from 'terser-webpack-plugin';
 
-let userConfig = undefined
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Configuración de exportación estática
+  output: 'export',
+  trailingSlash: true,
+  skipTrailingSlashRedirect: true,
+  
+  // Configuración de imágenes
+  images: {
+    unoptimized: true,
+    domains: [
+      'api.webrushbrasil.com.br',
+      'webrushapi.onrender.com',
+      'cdn.vectorstock.com',
+      'images.unsplash.com',
+      'via.placeholder.com'
+    ],
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+  },
+  
+  // Configuración de build
   eslint: {
     ignoreDuringBuilds: true,
   },
   typescript: {
     ignoreBuildErrors: true,
   },
-  images: {
-    unoptimized: true,
+  
+  // Optimizaciones de rendimiento
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
   },
+  
+  // Experimental features
   experimental: {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
+    optimizePackageImports: ['framer-motion', 'lucide-react'],
   },
-  output: 'export',
+  
+  // Configuración de compresión
+  compress: true,
+  reactStrictMode: true,
+  generateEtags: false,
+  poweredByHeader: false,
+  
+  // Webpack optimizations
   webpack: (config, { dev, isServer }) => {
     // Optimización de JavaScript
     config.optimization = {
@@ -31,8 +62,15 @@ const nextConfig = {
         cacheGroups: {
           vendor: {
             test: /[\\/]node_modules[\\/]/,
-            name: 'vendor',
+            name: 'vendors',
             chunks: 'all',
+            priority: 1,
+          },
+          framerMotion: {
+            test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
+            name: 'framer-motion',
+            chunks: 'async',
+            priority: 10,
           },
         },
       },
@@ -55,25 +93,6 @@ const nextConfig = {
 
     return config;
   }
-}
+};
 
-if (userConfig) {
-  // ESM imports will have a "default" property
-  const config = userConfig.default || userConfig
-
-  for (const key in config) {
-    if (
-      typeof nextConfig[key] === 'object' &&
-      !Array.isArray(nextConfig[key])
-    ) {
-      nextConfig[key] = {
-        ...nextConfig[key],
-        ...config[key],
-      }
-    } else {
-      nextConfig[key] = config[key]
-    }
-  }
-}
-
-export default nextConfig
+export default nextConfig;
