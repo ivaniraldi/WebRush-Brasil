@@ -60,9 +60,8 @@ export default function ContactForm() {
       );
       setIsSubmitting(false);
       setSubmitted(true);
-      let now = new Date();
-      let time = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-      setFormData({ name: "", email: "", phone: "", service: "", message: "", time });
+      // Reiniciar formData solo con campos válidos
+      setFormData({ name: "", email: "", phone: "", service: "", message: "" });
       setTimeout(() => setSubmitted(false), 5000);
     } catch (error) {
       setIsSubmitting(false);

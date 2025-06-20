@@ -144,76 +144,95 @@ export default function BlogsListPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className={`group rounded-xl shadow-lg overflow-hidden ${
-                    theme === "dark" 
-                      ? "bg-gray-800 hover:bg-gray-700 border border-gray-700" 
-                      : "bg-white hover:bg-gray-50 border border-gray-200"
-                  } hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1`}
+                  className="group relative rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-sm border border-gray-700/50 hover:border-purple-500/50 shadow-xl hover:shadow-purple-500/10 transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02]"
                 >
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 via-transparent to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
                   <div className="relative overflow-hidden">
                     <img
                       src={blog.cover_image || blog.image || "/images/placeholder.avif"}
                       alt={blog.title}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-700"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
+                    
+                    {/* Reading time badge */}
+                    <div className="absolute top-4 right-4 bg-gray-900/90 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium border border-gray-700">
+                      {blog.content ? Math.ceil(blog.content.split(' ').length / 200) : 5} min
+                    </div>
                   </div>
                   
-                  <div className="p-6">
-                    <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white font-heading line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  <div className="relative p-6 space-y-4">
+                    <h2 className="text-xl font-bold text-white font-heading line-clamp-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-blue-400 group-hover:bg-clip-text transition-all duration-300">
                       {blog.title}
                     </h2>
                     
-                    <p className="text-gray-600 dark:text-gray-300 mb-4 font-body line-clamp-3 leading-relaxed">
+                    <p className="text-gray-300 font-body line-clamp-3 leading-relaxed text-sm">
                       {blog.summary || blog.description || blog.excerpt}
                     </p>
                     
-                    {/* Metadata */}
-                    <div className="flex items-center gap-4 mb-4 text-sm text-gray-500 dark:text-gray-400">
-                      {blog.author && (
-                        <div className="flex items-center gap-1">
-                          <User className="w-4 h-4" />
-                          <span>{blog.author}</span>
-                        </div>
-                      )}
-                      {blog.createdAt && (
-                        <div className="flex items-center gap-1">
-                          <Calendar className="w-4 h-4" />
-                          <span>{new Date(blog.createdAt).toLocaleDateString('es-ES')}</span>
-                        </div>
-                      )}
-                    </div>
-                    
                     {/* Tags */}
                     {blog.tags && blog.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {blog.tags.slice(0, 3).map((tag) => (
+                      <div className="flex flex-wrap gap-2">
+                        {blog.tags.slice(0, 3).map((tag, tagIndex) => (
                           <span
                             key={tag}
-                            className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full font-medium"
+                            className={`text-xs px-3 py-1 rounded-full font-medium border transition-colors duration-300 ${
+                              tagIndex === 0 
+                                ? 'bg-purple-500/20 text-purple-300 border-purple-500/30 hover:bg-purple-500/30' 
+                                : tagIndex === 1 
+                                ? 'bg-blue-500/20 text-blue-300 border-blue-500/30 hover:bg-blue-500/30'
+                                : 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30 hover:bg-indigo-500/30'
+                            }`}
                           >
-                            {tag}
+                            #{tag}
                           </span>
                         ))}
                         {blog.tags.length > 3 && (
-                          <span className="text-xs text-gray-500 dark:text-gray-400">
-                            +{blog.tags.length - 3} más
+                          <span className="text-xs text-gray-400 bg-gray-700/50 px-2 py-1 rounded-full">
+                            +{blog.tags.length - 3}
                           </span>
                         )}
                       </div>
                     )}
                     
-                    <Link
-                      href={`/blogs/${blog.slug}`}
-                      className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium font-body transition-colors group"
-                    >
-                      Leer Más
-                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
+                    {/* Metadata */}
+                    <div className="flex items-center justify-between text-sm text-gray-400 pt-2 border-t border-gray-700/50">
+                      <div className="flex items-center gap-4">
+                        {blog.author && (
+                          <div className="flex items-center gap-1">
+                            <User className="w-4 h-4 text-purple-400" />
+                            <span>{typeof blog.author === 'object' ? blog.author.name || blog.author.email : blog.author}</span>
+                          </div>
+                        )}
+                        {blog.createdAt && (
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-4 h-4 text-blue-400" />
+                            <span>{new Date(blog.createdAt).toLocaleDateString('es-ES')}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    
+                    {/* Read more button */}
+                    <div className="pt-4">
+                      <Link
+                        href={`/blogs/${blog.slug}`}
+                        className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-5 py-2.5 rounded-xl font-medium transition-all duration-300 hover:from-purple-500 hover:to-blue-500 hover:shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 group/btn"
+                      >
+                        Leer Artículo
+                        <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    </div>
                   </div>
+                  
+                  {/* Decorative elements */}
+                  <div className="absolute -top-1 -right-1 w-20 h-20 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute -bottom-1 -left-1 w-16 h-16 bg-gradient-to-tr from-blue-500/20 to-purple-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </motion.article>
               ))}
             </motion.div>
